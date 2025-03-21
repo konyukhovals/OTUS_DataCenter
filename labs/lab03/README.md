@@ -39,6 +39,42 @@ Hometask 1.5
 |Spine 3|Leaf 4|10.1.0.22/31|
 
 
-# Конфиги устройств
+# Демонстрация работы схемы
 
 ## Spine1
+
+![image](https://github.com/user-attachments/assets/5755d735-a720-41c7-8112-fe1eb1cc28be)
+
+## Spine2
+
+![image](https://github.com/user-attachments/assets/c1af3967-c58e-468d-8954-52f10ce2302d)
+
+## Spine3
+
+![image](https://github.com/user-attachments/assets/9438bd80-9122-4f06-82ad-7b8cfc286dbe)
+
+## Leaf 1
+
+![image](https://github.com/user-attachments/assets/b8d3f911-a357-46b2-808e-1223af325cf5)
+
+## Leaf 2
+
+![image](https://github.com/user-attachments/assets/88ea5020-c1b2-43f9-bd3e-0131caa05c51)
+
+## Leaf 3
+
+![image](https://github.com/user-attachments/assets/0ef82083-2b4b-48cb-902e-a24e1e39a33f)
+
+## Leaf 4
+
+![image](https://github.com/user-attachments/assets/b0a4469c-b3b5-4ae5-bb6c-078a5f93e1ae)
+
+# Конфигурации устройств
+
+
+
+
+
+
+
+
