@@ -647,20 +647,29 @@ end
 
 ```
 
-##  Выборочные выгрузки статусов работоспособности, например на Spine2
+##  Выгрузки статусов работоспособности Спайнов
 
-![image](https://github.com/user-attachments/assets/4bbf401c-1d21-4d5c-b171-7a28bf257f2d)
+Spine1
 
-![image](https://github.com/user-attachments/assets/9a01ac14-c42c-4c75-aa37-2b7777360694)
+![image](https://github.com/user-attachments/assets/dbf87d13-5c94-4b96-bb85-2ab401e55c55)
 
+Spine2
 
+![image](https://github.com/user-attachments/assets/e7616898-1dd3-44b6-834a-a4ec16e7f053)
 
-##  Выборочные выгрузки статусов работоспособности, например на Leaf3
+Spine3
 
+![image](https://github.com/user-attachments/assets/695c5145-1d47-452a-ba0c-9d2b3a4aab8f)
 
-![image](https://github.com/user-attachments/assets/e960abe5-e3f2-4510-9f66-d3a499727821)
+##  Выгрузки статусов работоспособности Лифов
 
+![image](https://github.com/user-attachments/assets/bc42ae5e-3ca5-4a04-b261-a3ae2d379d83)
 
+![image](https://github.com/user-attachments/assets/c8bec901-ad55-4375-be98-21df3da97608)
+
+![image](https://github.com/user-attachments/assets/8e0163b0-f2aa-4f16-8c08-376af2dc8b26)
+
+![image](https://github.com/user-attachments/assets/4e1981f0-2fda-42d6-aa75-d58951f84eea)
 
 
 
