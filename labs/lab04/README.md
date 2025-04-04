@@ -42,25 +42,31 @@ Hometask 1.8 - eBGP Underlay
 
 ## Spine1
 
-
+![image](https://github.com/user-attachments/assets/a7d8d1c0-c541-4eeb-810f-2e17f3e92e20)
 
 ## Spine2
 
+![image](https://github.com/user-attachments/assets/496a3b7f-5604-4e27-9163-ae798df25c28)
 
 ## Spine3
 
+![image](https://github.com/user-attachments/assets/555a5439-7382-49e3-89e1-c481c6b6625d)
 
 ## Leaf 1
 
+![image](https://github.com/user-attachments/assets/97a6f364-25a2-486f-8260-d96632c5a12b)
 
 ## Leaf 2
 
+![image](https://github.com/user-attachments/assets/56e606f6-2fad-4cfb-8a2f-7053aff68b05)
 
 ## Leaf 3
 
+![image](https://github.com/user-attachments/assets/949879c5-e17e-4238-bb84-a9576328ed32)
 
 ## Leaf 4
 
+![image](https://github.com/user-attachments/assets/9bbccec3-924b-494e-9cba-32fa1da4b11b)
 
 # Конфигурации устройств
 
