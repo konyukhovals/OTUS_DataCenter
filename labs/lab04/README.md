@@ -40,38 +40,49 @@ Hometask 1.8 - eBGP Underlay
 
 # Демонстрация работы схемы
 
-Схема условно нерабочая, прошу помощи. я не понимаю, что происходит. спайны должны раздавать маршруты - на лифы вроде оно приходит. информация о лупбеках есть не у всех, с лифов нельзя пинговать лупбеки других лифов
+Дошло в чем был неправ, роут-рефлектор нам тут вообще глобально ни к чему, он не про это и не в этой схеме
+на любом лифе/спайне есть все маршруты, пингуется каждый интерфейс каждого роутера в стенде. для лифа4 тесты ниже. ну и далее по всем устройствам
 
-![image](https://github.com/user-attachments/assets/312341ef-18d0-4632-a33d-072caf0bd537)
+![image](https://github.com/user-attachments/assets/4d9c8a72-56b4-4288-ab7d-46f3d2d48cad)
+
+![image](https://github.com/user-attachments/assets/45f74b4a-678a-466e-ad41-44d5118d2be4)
 
 
 ## Spine1
 
-![image](https://github.com/user-attachments/assets/a7d8d1c0-c541-4eeb-810f-2e17f3e92e20)
+![image](https://github.com/user-attachments/assets/13cffb7c-cdca-4e7e-9384-92b8ef5a8fe7)
 
 ## Spine2
 
-![image](https://github.com/user-attachments/assets/496a3b7f-5604-4e27-9163-ae798df25c28)
+![image](https://github.com/user-attachments/assets/7b164b99-db1c-4317-8661-84b14d083676)
 
 ## Spine3
 
-![image](https://github.com/user-attachments/assets/555a5439-7382-49e3-89e1-c481c6b6625d)
+![image](https://github.com/user-attachments/assets/9a810cf6-c63e-4ddd-9f00-f5d8dfd52126)
 
 ## Leaf 1
 
-![image](https://github.com/user-attachments/assets/97a6f364-25a2-486f-8260-d96632c5a12b)
+![image](https://github.com/user-attachments/assets/aa83d3cd-b98b-48cd-9d85-ec81743ae587)
+
+![image](https://github.com/user-attachments/assets/bccc476a-82ae-4993-b4ac-d3de8c15d4d1)
 
 ## Leaf 2
 
-![image](https://github.com/user-attachments/assets/56e606f6-2fad-4cfb-8a2f-7053aff68b05)
+![image](https://github.com/user-attachments/assets/25f6ca7f-ed0b-4460-a84e-2f610698c389)
+
+![image](https://github.com/user-attachments/assets/00e44a27-8d0a-4d6a-9d41-fca758e60540)
 
 ## Leaf 3
 
-![image](https://github.com/user-attachments/assets/949879c5-e17e-4238-bb84-a9576328ed32)
+![image](https://github.com/user-attachments/assets/7cb8bf5c-55e3-42fa-841e-936c9171e7f3)
+
+![image](https://github.com/user-attachments/assets/70bc5b62-6bc5-48ad-8b66-24957574c1c1)
 
 ## Leaf 4
 
-![image](https://github.com/user-attachments/assets/9bbccec3-924b-494e-9cba-32fa1da4b11b)
+![image](https://github.com/user-attachments/assets/19c53501-5d0d-4d61-b400-f188e1e13795)
+
+![image](https://github.com/user-attachments/assets/50f4e079-b2ca-4b9f-9a0a-c0fd58299d91)
 
 # Конфигурации устройств
 
