@@ -40,8 +40,9 @@ Hometask 1.8 - eBGP Underlay
 
 # Демонстрация работы схемы
 
-Дошло в чем был неправ, роут-рефлектор нам тут вообще глобально ни к чему, он не про это и не в этой схеме
-на любом лифе/спайне есть все маршруты, пингуется каждый интерфейс каждого роутера в стенде. для лифа4 тесты ниже. ну и далее по всем устройствам
+Дошло в чем был неправ, роут-рефлектор нам тут вообще глобально ни к чему, он не про это и в этой схеме вообще не нужен
+
+На любом лифе/спайне есть все маршруты, пингуется каждый интерфейс каждого роутера в стенде. Для лифа4 пингы в любую точку стенда ниже. ну и далее по всем устройствам bgp/route и конфиги
 
 ![image](https://github.com/user-attachments/assets/4d9c8a72-56b4-4288-ab7d-46f3d2d48cad)
 
@@ -89,7 +90,7 @@ Hometask 1.8 - eBGP Underlay
 ## Spine1
 
 ```
-sh run
+Spine1#sh run
 ! Command: show running-config
 ! device: Spine1 (vEOS-lab, EOS-4.29.2F)
 !
@@ -141,24 +142,37 @@ interface Loopback0
 interface Loopback1
    ip address 10.255.1.0/32
 !
-inter
-        neighbor 10.1.0.3 next-hop-self
-   neighbor 10.1.0.3 route-reflector-client
+interface Management1
+!
+ip routing
+!
+router bgp 65000
+   router-id 10.1.1.0
+   bgp cluster-id 10.1.1.0
+   maximum-paths 10 ecmp 10
+   neighbor 10.1.0.1 remote-as 65210
+   neighbor 10.1.0.1 next-hop-self
+   neighbor 10.1.0.3 remote-as 65211
+   neighbor 10.1.0.3 next-hop-self
    neighbor 10.1.0.5 remote-as 65212
    neighbor 10.1.0.5 next-hop-self
-   neighbor 10.1.0.5 route-reflector-client
    neighbor 10.1.0.7 remote-as 65213
    neighbor 10.1.0.7 next-hop-self
-   neighbor 10.1.0.7 route-reflector-client
    !
    address-family ipv4
       neighbor 10.1.0.1 activate
       neighbor 10.1.0.3 activate
       neighbor 10.1.0.5 activate
       neighbor 10.1.0.7 activate
+      network 10.1.0.0/31
+      network 10.1.0.2/31
+      network 10.1.0.4/31
+      network 10.1.0.6/31
       network 10.1.1.0/32
 !
 end
+Spine1#
+
 
 ```
 
@@ -225,33 +239,33 @@ router bgp 65000
    maximum-paths 10 ecmp 10
    neighbor 10.1.0.9 remote-as 65210
    neighbor 10.1.0.9 next-hop-self
-   neighbor 10.1.0.9 route-reflector-client
    neighbor 10.1.0.11 remote-as 65211
    neighbor 10.1.0.11 next-hop-self
-   neighbor 10.1.0.11 route-reflector-client
    neighbor 10.1.0.13 remote-as 65212
    neighbor 10.1.0.13 next-hop-self
-   neighbor 10.1.0.13 route-reflector-client
    neighbor 10.1.0.15 remote-as 65213
    neighbor 10.1.0.15 next-hop-self
-   neighbor 10.1.0.15 route-reflector-client
    !
    address-family ipv4
       neighbor 10.1.0.9 activate
       neighbor 10.1.0.11 activate
       neighbor 10.1.0.13 activate
       neighbor 10.1.0.15 activate
+      network 10.1.0.8/31
+      network 10.1.0.10/31
+      network 10.1.0.12/31
+      network 10.1.0.14/31
       network 10.1.1.1/32
 !
 end
 Spine2#
+
 
 ```
 
 ## Spine3
 
 ```
-
 Spine3#sh run
 ! Command: show running-config
 ! device: Spine3 (vEOS-lab, EOS-4.29.2F)
@@ -312,26 +326,27 @@ router bgp 65000
    maximum-paths 10 ecmp 10
    neighbor 10.1.0.17 remote-as 65210
    neighbor 10.1.0.17 next-hop-self
-   neighbor 10.1.0.17 route-reflector-client
    neighbor 10.1.0.19 remote-as 65211
    neighbor 10.1.0.19 next-hop-self
-   neighbor 10.1.0.19 route-reflector-client
    neighbor 10.1.0.21 remote-as 65212
    neighbor 10.1.0.21 next-hop-self
-   neighbor 10.1.0.21 route-reflector-client
    neighbor 10.1.0.23 remote-as 65213
    neighbor 10.1.0.23 next-hop-self
-   neighbor 10.1.0.23 route-reflector-client
    !
    address-family ipv4
       neighbor 10.1.0.17 activate
       neighbor 10.1.0.19 activate
       neighbor 10.1.0.21 activate
       neighbor 10.1.0.23 activate
+      network 10.1.0.16/31
+      network 10.1.0.18/31
+      network 10.1.0.20/31
+      network 10.1.0.22/31
       network 10.1.1.2/32
 !
 end
 Spine3#
+
 
 ```
 
@@ -404,9 +419,14 @@ router bgp 65210
       neighbor 10.1.0.0 activate
       neighbor 10.1.0.8 activate
       neighbor 10.1.0.16 activate
+      network 10.1.0.0/31
+      network 10.1.0.8/31
+      network 10.1.0.16/31
       network 10.1.1.10/32
 !
 end
+Leaf1#
+
 
 ```
 
@@ -477,17 +497,20 @@ router bgp 65211
       neighbor 10.1.0.2 activate
       neighbor 10.1.0.10 activate
       neighbor 10.1.0.18 activate
+      network 10.1.0.2/31
+      network 10.1.0.10/31
+      network 10.1.0.18/31
       network 10.1.1.11/32
 !
 end
 Leaf2#
+
 
 ```
 
 ## Leaf3
 
 ```
-Leaf3#
 Leaf3#sh run
 ! Command: show running-config
 ! device: Leaf3 (vEOS-lab, EOS-4.29.2F)
@@ -551,12 +574,16 @@ router bgp 65212
       neighbor 10.1.0.4 activate
       neighbor 10.1.0.12 activate
       neighbor 10.1.0.20 activate
+      network 10.1.0.4/31
+      network 10.1.0.12/31
+      network 10.1.0.20/31
       network 10.1.1.12/32
 !
 end
+Leaf3#
+
 
 ```
-
 
 ## Leaf4
 
@@ -624,8 +651,13 @@ router bgp 65213
       neighbor 10.1.0.6 activate
       neighbor 10.1.0.14 activate
       neighbor 10.1.0.22 activate
+      network 10.1.0.6/31
+      network 10.1.0.14/31
+      network 10.1.0.22/31
       network 10.1.1.13/32
 !
 end
+Leaf4#
+
 
 ```
