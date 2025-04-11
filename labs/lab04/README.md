@@ -661,3 +661,10 @@ Leaf4#
 
 
 ```
+
+
+работа над ошибками. пресет для BGP
+
+![428664011-edb91554-3839-44e0-b7df-ca8195565601](https://github.com/user-attachments/assets/f94c131a-90f9-4146-85ec-c3add12d690d)
+
+
