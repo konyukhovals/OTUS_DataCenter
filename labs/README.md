@@ -17,15 +17,17 @@ sudo /opt/unetlab/wrappers/unl_wrapper -a fixpermissions
 
 # Вход в Arista
 
+```
 admin
 en
 zerotouch cancel
-
+```
+```
 en
 conf t
 ip routing
 exi
 wr
-
+```
 
 
