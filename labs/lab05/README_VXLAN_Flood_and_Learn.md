@@ -44,8 +44,6 @@ Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 На Leaf 1 и 3, где присутствуют клиенты VxLan
 <img width="404" height="169" alt="image" src="https://github.com/user-attachments/assets/b2341413-66a8-47cb-871e-10fafa66dbbd" />
 
-На Leaf2 - там пусто
-
 Проверка PIM на Spine1
 <img width="1610" height="968" alt="image" src="https://github.com/user-attachments/assets/fe3e8143-af01-415f-8313-36d8a60437ab" />
 
@@ -266,6 +264,23 @@ feature nv overlay
 
 ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
 ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+
+vlan 1,10,20
+vlan 10
+  name Client10
+  vn-segment 10010
+vlan 20
+  name Client20
+  vn-segment 10020
+
+interface nve1
+  no shutdown
+  source-interface loopback1
+  member vni 10010
+    mcast-group 239.1.1.1
+  member vni 10020
+    mcast-group 239.1.1.2
 
 interface Ethernet1/1
   ip address 10.1.0.3/31
