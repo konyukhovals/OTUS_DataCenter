@@ -44,6 +44,8 @@ Hometask 2.11 - VxLAN. L2 VNI by Static - Cisco Nexus
 
 <img width="1115" height="613" alt="image" src="https://github.com/user-attachments/assets/84b73f1c-d601-453f-92d2-0ceb51531b8f" />
 
+<img width="2021" height="1160" alt="изображение" src="https://github.com/user-attachments/assets/93b05a53-ce11-49f4-8294-35be1401edd3" />
+
 
 
 ## Spine1
