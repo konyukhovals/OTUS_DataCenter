@@ -33,20 +33,23 @@ Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 
 # Демонстрация работы схемы
 
-Поскольку у нас обрезанная эмуляция, насколько я понял, мы сделали схему Flood-and-Learn VXLAN, потому что EVPN VXLAN не поддерживается на образах, с которыми мы работаем.
+Для демонстрации сделано 2 VxLAN, 10010 И 10020, ассоциированы с VLAN 10 И 20. Мультикастный адрес 239.1.1.1
 
-я вывел в влане 10 два ПК - 172.16.0.1/2:
+<img width="845" height="540" alt="image" src="https://github.com/user-attachments/assets/275224e7-1bfa-4b63-b03d-237883af4f2d" />
 
-![image](https://github.com/user-attachments/assets/624a4381-818b-4054-95f5-f7d94c4700e6)
+<img width="859" height="495" alt="image" src="https://github.com/user-attachments/assets/8113b4a0-b325-47b5-bece-1f9d4ad40f63" />
 
-![image](https://github.com/user-attachments/assets/ec810d42-5ca1-458b-8580-af80d845ed9f)
+<img width="2150" height="1155" alt="image" src="https://github.com/user-attachments/assets/baa8bd36-9324-4de5-a932-844f897b6596" />
 
-![image](https://github.com/user-attachments/assets/3ce031b3-5b57-40ad-8fc9-160aee648730)
+На Leaf 1 и 3, где присутствуют клиенты VxLan
+<img width="404" height="169" alt="image" src="https://github.com/user-attachments/assets/b2341413-66a8-47cb-871e-10fafa66dbbd" />
 
-MAC-адрес оппонента болтается за VXLAN1-интерфейсом
-![image](https://github.com/user-attachments/assets/5c33e54c-a37a-4558-9e05-1ca55b199bc6)
+На Leaf2 - там пусто
 
-Конфигурации:
+Проверка PIM на Spine1
+<img width="1610" height="968" alt="image" src="https://github.com/user-attachments/assets/fe3e8143-af01-415f-8313-36d8a60437ab" />
+
+
 
 ## Spine1
 
