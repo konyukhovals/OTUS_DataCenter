@@ -41,6 +41,14 @@ Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 
 <img width="2150" height="1155" alt="image" src="https://github.com/user-attachments/assets/baa8bd36-9324-4de5-a932-844f897b6596" />
 
+Что в трафике - даже ARP идет через мультикаст, разумеется
+
+<img width="1988" height="941" alt="изображение" src="https://github.com/user-attachments/assets/747f4148-e6c1-4dd5-b967-bc0ef3ccf030" />
+
+<img width="2111" height="1187" alt="изображение" src="https://github.com/user-attachments/assets/35e16da6-756d-4420-91f6-d4ca1d867a81" />
+
+
+
 На Leaf 1 и 3, где присутствуют клиенты VxLan
 <img width="404" height="169" alt="image" src="https://github.com/user-attachments/assets/b2341413-66a8-47cb-871e-10fafa66dbbd" />
 
