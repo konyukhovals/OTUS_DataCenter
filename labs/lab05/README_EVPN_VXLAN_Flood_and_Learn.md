@@ -1,8 +1,8 @@
-Hometask 2.11 - VxLAN. L2 VNI
+Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 
 # Наша топология
 
-![image](https://github.com/user-attachments/assets/7299341a-677b-4463-b533-b56725899571)
+<img width="1512" height="1043" alt="image" src="https://github.com/user-attachments/assets/3e2d2dcb-90d8-4ad9-b81b-048f6954ad1f" />
 
 
 # Наша адресация
@@ -13,11 +13,10 @@ Hometask 2.11 - VxLAN. L2 VNI
 |:-----------|:---------------------|:--------------------|
 |Spine 1|10.1.1.0/32|10.255.1.0/32|
 |Spine 2|10.1.1.1/32|10.255.1.1/32|
-|Spine 3|10.1.1.2/32|10.255.1.2/32|
+
 |Leaf 1|10.1.1.10/32|10.255.1.10/32|
 |Leaf 2|10.1.1.11/32|10.255.1.11/32|
 |Leaf 3|10.1.1.12/32|10.255.1.12/32|
-|Leaf 4|10.1.1.13/32|10.255.1.13/32|
 
 Адресация p2p-подсетей /31, от первого адреса подсети от каждого спайна к лифу
 
@@ -26,17 +25,11 @@ Hometask 2.11 - VxLAN. L2 VNI
 |Spine 1|Leaf 1|10.1.0.0/31|
 |Spine 1|Leaf 2|10.1.0.2/31|
 |Spine 1|Leaf 3|10.1.0.4/31|
-|Spine 1|Leaf 4|10.1.0.6/31|
 |||
 |Spine 2|Leaf 1|10.1.0.8/31|
 |Spine 2|Leaf 2|10.1.0.10/31|
 |Spine 2|Leaf 3|10.1.0.12/31|
-|Spine 2|Leaf 4|10.1.0.14/31|
-|||
-|Spine 3|Leaf 1|10.1.0.16/31|
-|Spine 3|Leaf 2|10.1.0.18/31|
-|Spine 3|Leaf 3|10.1.0.20/31|
-|Spine 3|Leaf 4|10.1.0.22/31|
+
 
 
 # Демонстрация работы схемы
