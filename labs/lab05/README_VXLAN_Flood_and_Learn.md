@@ -316,6 +316,13 @@ feature nv overlay
 
 ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
 ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+vlan 1,10,20
+vlan 10
+  name Client10
+  vn-segment 10010
+vlan 20
+  name Client20
+  vn-segment 10020
 
 interface nve1
   no shutdown
