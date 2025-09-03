@@ -49,6 +49,10 @@ Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 Проверка PIM на Spine1
 <img width="1610" height="968" alt="image" src="https://github.com/user-attachments/assets/fe3e8143-af01-415f-8313-36d8a60437ab" />
 
+Mroute на Leaf1
+<img width="1004" height="971" alt="image" src="https://github.com/user-attachments/assets/e81c7171-e953-4fe7-8f7c-49637f273ff6" />
+
+<img width="1365" height="1254" alt="image" src="https://github.com/user-attachments/assets/a528cf25-32b6-4596-b1ae-a043d59e0a78" />
 
 
 ## Spine1
@@ -56,93 +60,57 @@ Hometask 2.11 - VxLAN. L2 VNI by Flood and Learn - Cisco Nexus
 ```
 
 Spine1#sh run
-! Command: show running-config
-! device: Spine1 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-logging console debugging
-!
-hostname Spine1
-!
-spanning-tree mode mstp
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.0/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.2/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.4/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   no switchport
-   ip address 10.1.0.6/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.0/32
-!
-interface Loopback1
-   ip address 10.255.1.0/32
-!
-interface Management1
-!
-ip routing
-!
+feature bgp
+feature pim
+feature vn-segment-vlan-based
+feature nv overlay
+
+ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
+ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+interface Ethernet1/1
+  ip address 10.1.0.0/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  ip address 10.1.0.2/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/3
+  ip address 10.1.0.4/31
+  ip pim sparse-mode
+  no shutdown
+
+interface loopback0
+  description Underlay
+  ip address 10.1.1.0/32
+  ip pim sparse-mode
+
+interface loopback1
+  description Overlay
+  ip address 10.255.1.0/32
+  ip pim sparse-mode
+icam monitor scale
+
 router bgp 65000
-   router-id 10.1.1.0
-   bgp cluster-id 10.1.1.0
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.1 remote-as 65210
-   neighbor 10.1.0.1 next-hop-self
-   neighbor 10.1.0.3 remote-as 65211
-   neighbor 10.1.0.3 next-hop-self
-   neighbor 10.1.0.5 remote-as 65212
-   neighbor 10.1.0.5 next-hop-self
-   neighbor 10.1.0.7 remote-as 65213
-   neighbor 10.1.0.7 next-hop-self
-   !
-   address-family evpn
-      neighbor 10.1.0.1 activate
-      neighbor 10.1.0.3 activate
-      neighbor 10.1.0.5 activate
-      neighbor 10.1.0.7 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.1 activate
-      neighbor 10.1.0.3 activate
-      neighbor 10.1.0.5 activate
-      neighbor 10.1.0.7 activate
-      network 10.1.0.0/31
-      network 10.1.0.2/31
-      network 10.1.0.4/31
-      network 10.1.0.6/31
-      network 10.1.1.0/32
-      network 10.255.1.0/32
-!
-end
+  router-id 10.1.1.0
+  address-family ipv4 unicast
+    network 10.1.0.0/31
+    network 10.1.0.2/31
+    network 10.1.0.4/31
+    network 10.1.1.0/32
+    network 10.255.1.0/32
+  neighbor 10.1.0.1
+    remote-as 65210
+    address-family ipv4 unicast
+  neighbor 10.1.0.3
+    remote-as 65211
+    address-family ipv4 unicast
+  neighbor 10.1.0.5
+    remote-as 65212
+    address-family ipv4 unicast
 
 ```
 
@@ -150,189 +118,60 @@ end
 
 ```
 
-Spine2(config)#sh run
-! Command: show running-config
-! device: Spine2 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Spine2
-!
-spanning-tree mode mstp
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.8/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.10/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.12/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   no switchport
-   ip address 10.1.0.14/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.1/32
-!
-interface Loopback1
-   ip address 10.255.1.1/32
-!
-interface Management1
-!
-ip routing
-!
+Spine2#sh run
+feature bgp
+feature pim
+feature vn-segment-vlan-based
+feature nv overlay
+ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
+ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+interface Ethernet1/1
+  ip address 10.1.0.6/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  ip address 10.1.0.8/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/3
+  ip address 10.1.0.10/31
+  ip pim sparse-mode
+  no shutdown
+
+interface loopback0
+  description Underlay
+  ip address 10.1.1.1/32
+  ip pim sparse-mode
+
+interface loopback1
+  description Overlay
+  ip address 10.255.1.1/32
+  ip pim sparse-mode
+icam monitor scale
+
 router bgp 65000
-   router-id 10.1.1.1
-   bgp cluster-id 10.1.1.1
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.9 remote-as 65210
-   neighbor 10.1.0.9 next-hop-self
-   neighbor 10.1.0.11 remote-as 65211
-   neighbor 10.1.0.11 next-hop-self
-   neighbor 10.1.0.13 remote-as 65212
-   neighbor 10.1.0.13 next-hop-self
-   neighbor 10.1.0.15 remote-as 65213
-   neighbor 10.1.0.15 next-hop-self
-   !
-   address-family evpn
-      neighbor 10.1.0.9 activate
-      neighbor 10.1.0.11 activate
-      neighbor 10.1.0.13 activate
-      neighbor 10.1.0.15 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.9 activate
-      neighbor 10.1.0.11 activate
-      neighbor 10.1.0.13 activate
-      neighbor 10.1.0.15 activate
-      network 10.1.0.8/31
-      network 10.1.0.10/31
-      network 10.1.0.12/31
-      network 10.1.0.14/31
-      network 10.1.1.1/32
-      network 10.255.1.1/32
-!
-end
-Spine2(config)#
+  router-id 10.1.1.1
+  address-family ipv4 unicast
+    network 10.1.0.6/31
+    network 10.1.0.8/31
+    network 10.1.0.10/31
+    network 10.1.1.1/32
+    network 10.255.1.1/32
+  neighbor 10.1.0.7
+    remote-as 65210
+    address-family ipv4 unicast
+  neighbor 10.1.0.9
+    remote-as 65211
+    address-family ipv4 unicast
+  neighbor 10.1.0.11
+    remote-as 65212
+    address-family ipv4 unicast
 
 ```
 
-## Spine3
-
-```
-
-Spine3#sh run
-! Command: show running-config
-! device: Spine3 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Spine3
-!
-spanning-tree mode mstp
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.16/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.18/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.20/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   no switchport
-   ip address 10.1.0.22/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.2/32
-!
-interface Loopback1
-   ip address 10.255.1.2/32
-!
-interface Management1
-!
-ip routing
-!
-router bgp 65000
-   router-id 10.1.1.2
-   bgp cluster-id 10.1.1.2
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.17 remote-as 65210
-   neighbor 10.1.0.17 next-hop-self
-   neighbor 10.1.0.19 remote-as 65211
-   neighbor 10.1.0.19 next-hop-self
-   neighbor 10.1.0.21 remote-as 65212
-   neighbor 10.1.0.21 next-hop-self
-   neighbor 10.1.0.23 remote-as 65213
-   neighbor 10.1.0.23 next-hop-self
-   !
-   address-family evpn
-      neighbor 10.1.0.17 activate
-      neighbor 10.1.0.19 activate
-      neighbor 10.1.0.21 activate
-      neighbor 10.1.0.23 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.17 activate
-      neighbor 10.1.0.19 activate
-      neighbor 10.1.0.21 activate
-      neighbor 10.1.0.23 activate
-      network 10.1.0.16/31
-      network 10.1.0.18/31
-      network 10.1.0.20/31
-      network 10.1.0.22/31
-      network 10.1.1.2/32
-      network 10.255.1.2/32
-!
-end
-Spine3#
-
-```
 
 
 ## Leaf1
