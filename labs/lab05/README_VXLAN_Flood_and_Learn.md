@@ -178,102 +178,79 @@ router bgp 65000
 
 ```
 Leaf1#sh run
-! Command: show running-config
-! device: Leaf1 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Leaf1
-!
-spanning-tree mode mstp
-!
+
+feature bgp
+feature pim
+feature vn-segment-vlan-based
+feature nv overlay
+
+ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
+ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+vlan 1,10,20
 vlan 10
-   name CLIENTS
-!
+  name Client10
+  vn-segment 10010
 vlan 20
-   name ADMINS
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.1/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.9/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.17/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   switchport access vlan 10
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-   switchport access vlan 20
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.10/32
-!
-interface Loopback1
-   ip address 10.255.1.10/32
-!
-interface Management1
-!
-interface Vlan10
-   ip address 172.16.0.3/24
-!
-interface Vxlan1
-   vxlan source-interface Loopback1
-   vxlan udp-port 4789
-   vxlan vlan 10 vni 10100
-   vxlan vlan 20 vni 10200
-   vxlan flood vtep 10.255.1.11 10.255.1.12 10.255.1.13
-!
-ip routing
-!
-route-map RM_Leave_BGP permit 10
-   match as 65210
-!
+  name Client20
+  vn-segment 10020
+
+interface nve1
+  no shutdown
+  source-interface loopback1
+  member vni 10010
+    mcast-group 239.1.1.1
+  member vni 10020
+    mcast-group 239.1.1.2
+
+interface Ethernet1/1
+  ip address 10.1.0.1/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  ip address 10.1.0.7/31
+  ip pim sparse-mode
+  no shutdown
+  
+interface Ethernet1/6
+  description Client20
+  switchport
+  switchport access vlan 20
+  no shutdown
+
+interface Ethernet1/7
+  description Client10
+  switchport
+  switchport access vlan 10
+  no shutdown
+
+interface loopback0
+  description Underlay
+  ip address 10.1.1.10/32
+  ip pim sparse-mode
+
+interface loopback1
+  description Overderlay
+  ip address 10.255.1.10/32
+  ip pim sparse-mode
+icam monitor scale
+
+line console
+line vty
 router bgp 65210
-   router-id 10.1.1.10
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.0 remote-as 65000
-   neighbor 10.1.0.8 remote-as 65000
-   neighbor 10.1.0.16 remote-as 65000
-   !
-   address-family evpn
-      neighbor 10.1.0.0 activate
-      neighbor 10.1.0.8 activate
-      neighbor 10.1.0.16 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.0 activate
-      neighbor 10.1.0.8 activate
-      neighbor 10.1.0.16 activate
-      network 10.1.0.0/31
-      network 10.1.0.8/31
-      network 10.1.0.16/31
-      network 10.1.1.10/32
-      network 10.255.1.10/32
-!
-end
-Leaf1#
+  router-id 10.1.1.10
+  address-family ipv4 unicast
+    network 10.1.0.0/31
+    network 10.1.0.6/31
+    network 10.1.1.10/32
+    network 10.255.1.10/32
+  neighbor 10.1.0.0
+    remote-as 65000
+    address-family ipv4 unicast
+  neighbor 10.1.0.6
+    remote-as 65000
+    address-family ipv4 unicast
 
 ```
 
@@ -281,96 +258,48 @@ Leaf1#
 
 ```
 Leaf2#sh run
-! Command: show running-config
-! device: Leaf2 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Leaf2
-!
-spanning-tree mode mstp
-!
-vlan 10
-   name CLIENTS
-!
-vlan 20
-   name ADMINS
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.3/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.11/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.19/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   switchport access vlan 10
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-   switchport access vlan 20
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.11/32
-!
-interface Loopback1
-   ip address 10.255.1.11/32
-!
-interface Management1
-!
-interface Vxlan1
-   vxlan source-interface Loopback1
-   vxlan udp-port 4789
-   vxlan vlan 10 vni 10100
-   vxlan vlan 20 vni 10200
-   vxlan flood vtep 10.255.1.10 10.255.1.12 10.255.1.13
-!
-ip routing
-!
+
+feature bgp
+feature pim
+feature vn-segment-vlan-based
+feature nv overlay
+
+ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
+ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+interface Ethernet1/1
+  ip address 10.1.0.3/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  ip address 10.1.0.9/31
+  ip pim sparse-mode
+  no shutdown
+
+interface loopback0
+  description Underlay
+  ip address 10.1.1.11/32
+  ip pim sparse-mode
+
+interface loopback1
+  description Overlay
+  ip address 10.255.1.11/32
+  ip pim sparse-mode
+
 router bgp 65211
-   router-id 10.1.1.11
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.2 remote-as 65000
-   neighbor 10.1.0.10 remote-as 65000
-   neighbor 10.1.0.18 remote-as 65000
-   !
-   address-family evpn
-      neighbor 10.1.0.2 activate
-      neighbor 10.1.0.10 activate
-      neighbor 10.1.0.18 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.2 activate
-      neighbor 10.1.0.10 activate
-      neighbor 10.1.0.18 activate
-      network 10.1.0.2/31
-      network 10.1.0.10/31
-      network 10.1.0.18/31
-      network 10.1.1.11/32
-      network 10.255.1.11/32
-!
-end
-Leaf2#wr
+  router-id 10.1.1.11
+  address-family ipv4 unicast
+    network 10.1.0.2/31
+    network 10.1.0.8/31
+    network 10.1.1.11/32
+    network 10.255.1.11/32
+  neighbor 10.1.0.2
+    remote-as 65000
+    address-family ipv4 unicast
+  neighbor 10.1.0.8
+    remote-as 65000
+    address-family ipv4 unicast
 
 ```
 
@@ -378,199 +307,74 @@ Leaf2#wr
 
 ```
 
-Leaf3(config)#
  Leaf3#sh run
-! Command: show running-config
-! device: Leaf3 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Leaf3
-!
-spanning-tree mode mstp
-!
-vlan 10
-   name CLIENTS
-!
-vlan 20
-   name ADMINS
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.5/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.13/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.21/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   switchport access vlan 10
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-   switchport access vlan 20
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.12/32
-!
-interface Loopback1
-   ip address 10.255.1.12/32
-!
-interface Management1
-!
-interface Vxlan1
-   vxlan source-interface Loopback1
-   vxlan udp-port 4789
-   vxlan vlan 10 vni 10100
-   vxlan vlan 20 vni 10200
-   vxlan flood vtep 10.255.1.10 10.255.1.11 10.255.1.13
-!
-ip routing
-!
+
+feature bgp
+feature pim
+feature vn-segment-vlan-based
+feature nv overlay
+
+ip pim rp-address 10.255.1.0 group-list 239.0.0.0/8
+ip pim rp-address 10.255.1.1 group-list 239.0.0.0/8
+
+interface nve1
+  no shutdown
+  source-interface loopback1
+  member vni 10010
+    mcast-group 239.1.1.1
+  member vni 10020
+    mcast-group 239.1.1.2
+
+interface Ethernet1/1
+  ip address 10.1.0.5/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  ip address 10.1.0.11/31
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/6
+  switchport
+  switchport access vlan 20
+  no shutdown
+
+interface Ethernet1/7
+  switchport
+  switchport access vlan 10
+  no shutdown
+  
+  
+interface loopback0
+  description Underlay
+  ip address 10.1.1.12/32
+  ip pim sparse-mode
+
+interface loopback1
+  description Overlay
+  ip address 10.255.1.12/32
+  ip pim sparse-mode
+icam monitor scale
+
+line console
+line vty
 router bgp 65212
-   router-id 10.1.1.12
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.4 remote-as 65000
-   neighbor 10.1.0.12 remote-as 65000
-   neighbor 10.1.0.20 remote-as 65000
-   !
-   address-family evpn
-      neighbor 10.1.0.4 activate
-      neighbor 10.1.0.12 activate
-      neighbor 10.1.0.20 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.4 activate
-      neighbor 10.1.0.12 activate
-      neighbor 10.1.0.20 activate
-      network 10.1.0.4/31
-      network 10.1.0.12/31
-      network 10.1.0.20/31
-      network 10.1.1.12/32
-      network 10.255.1.12/32
-!
-end
-Leaf3# wr
+  router-id 10.1.1.12
+  address-family ipv4 unicast
+    network 10.1.0.4/31
+    network 10.1.0.10/31
+    network 10.1.1.12/32
+    network 10.255.1.12/32
+  neighbor 10.1.0.4
+    remote-as 65000
+    address-family ipv4 unicast
+  neighbor 10.1.0.10
+    remote-as 65000
+    address-family ipv4 unicast
+
 
 ```
-
-## Leaf4
-
-```
-Leaf4#sh run
-! Command: show running-config
-  ! device: Leaf4 (vEOS-lab, EOS-4.29.2F)
-!
-! boot system flash:/vEOS-lab.swi
-!
-no aaa root
-!
-transceiver qsfp default-mode 4x10G
-!
-service routing protocols model multi-agent
-!
-hostname Leaf4
-!
-spanning-tree mode mstp
-!
-vlan 10
-   name CLIENTS
-!
-vlan 20
-   name ADMINS
-!
-interface Ethernet1
-   no switchport
-   ip address 10.1.0.7/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet2
-   no switchport
-   ip address 10.1.0.15/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet3
-   no switchport
-   ip address 10.1.0.23/31
-   no ip ospf neighbor bfd
-!
-interface Ethernet4
-   switchport access vlan 10
-   no ip ospf neighbor bfd
-!
-interface Ethernet5
-   switchport access vlan 20
-!
-interface Ethernet6
-!
-interface Ethernet7
-!
-interface Ethernet8
-!
-interface Loopback0
-   ip address 10.1.1.13/32
-!
-interface Loopback1
-   ip address 10.255.1.13/32
-!
-interface Management1
-!
-interface Vxlan1
-   vxlan source-interface Loopback1
-   vxlan udp-port 4789
-   vxlan vlan 10 vni 10100
-   vxlan vlan 20 vni 10200
-   vxlan flood vtep 10.255.1.10 10.255.1.11 10.255.1.12
-!
-ip routing
-!
-router bgp 65213
-   router-id 10.1.1.13
-   maximum-paths 10 ecmp 10
-   neighbor 10.1.0.6 remote-as 65000
-   neighbor 10.1.0.14 remote-as 65000
-   neighbor 10.1.0.22 remote-as 65000
-   !
-   address-family evpn
-      neighbor 10.1.0.6 activate
-      neighbor 10.1.0.13 activate
-      neighbor 10.1.0.22 activate
-   !
-   address-family ipv4
-      neighbor 10.1.0.6 activate
-      neighbor 10.1.0.14 activate
-      neighbor 10.1.0.22 activate
-      network 10.1.0.6/31
-      network 10.1.0.14/31
-      network 10.1.0.22/31
-      network 10.1.1.13/32
-      network 10.255.1.13/32
-!
-end
-Leaf4#     wr
-
-```
-
-
 
 
 
