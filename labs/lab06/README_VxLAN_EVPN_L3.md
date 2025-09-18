@@ -52,6 +52,14 @@ reload
 
 <img width="742" height="314" alt="image" src="https://github.com/user-attachments/assets/2b67dae5-6189-43ac-a41b-ba5b24427aef" />
 
+Святой и невинный пинг
+<img width="877" height="799" alt="image" src="https://github.com/user-attachments/assets/7ad62e13-61a3-4e6e-95bc-3468ad8c3c75" />
+
+Чего только BGP с собой не таскает
+<img width="867" height="837" alt="image" src="https://github.com/user-attachments/assets/8210f7e9-48fc-4c42-a672-f2fbd18a35a1" />
+<img width="674" height="511" alt="image" src="https://github.com/user-attachments/assets/ec12af68-5793-40a6-a7da-05f4751e3df9" />
+<img width="512" height="551" alt="image" src="https://github.com/user-attachments/assets/9b3e4111-0f7d-4f32-97ed-6688f04b5823" />
+
 
 Набор команд для диагностики (sh mac add - для Leaf)
 
