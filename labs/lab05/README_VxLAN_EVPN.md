@@ -1,4 +1,5 @@
 Hometask 2.11 - VxLAN EVPN - Arista 4.29.2F
+Перешел на Аристу, не смог в Cisco Nexus нормально запустить VxLAN EVPN
 
 # Наша топология
 
