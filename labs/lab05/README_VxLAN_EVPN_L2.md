@@ -243,8 +243,24 @@ Leaf1#
 
 <img width="1074" height="777" alt="image" src="https://github.com/user-attachments/assets/d0672c8b-cef5-4824-95d7-a72583ba04db" />
 
-# Святой и невинный ARP-запрос, пока без arp-supression
+# Святой и невинный ARP-запрос, насколько я понял, arp-supression включен
+благодаря
 
+```
+ vlan 10
+      rd auto
+      route-target both 10100:10100
+      redistribute learned
+   !
+   vlan 20
+      rd auto
+      route-target both 10200:10200
+      redistribute learned
+```
+именно
+route-target both 10100:10100
+redistribute learned
+      
 <img width="1091" height="828" alt="image" src="https://github.com/user-attachments/assets/2f84696f-458d-4b14-9cc1-e2dc5f147c02" />
 
 # Отдельно взятый BGP-UPDATE при clear ip bgp, чтобы спровоццировать анонсы underlay и overlay
