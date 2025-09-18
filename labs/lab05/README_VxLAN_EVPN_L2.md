@@ -29,7 +29,22 @@ Hometask 2.11 - VxLAN EVPN - Arista 4.29.2F
 |Spine 2|Leaf 2|10.1.0.10/31|
 |Spine 2|Leaf 3|10.1.0.12/31|
 
+# Первичный конфиг Arista
 
+```
+admin
+
+en
+conf t
+zerotouch cancel
+
+enable
+configure terminal
+service routing protocols model multi-agent
+end
+write memory
+reload
+```
 
 # Демонстрация работы схемы
 
@@ -38,6 +53,16 @@ Hometask 2.11 - VxLAN EVPN - Arista 4.29.2F
 <img width="781" height="300" alt="image" src="https://github.com/user-attachments/assets/12a124e3-8ddd-4dad-b976-70b426c6a304" />
 
 <img width="748" height="226" alt="image" src="https://github.com/user-attachments/assets/832802a6-d592-47a0-a1f8-a7bc1745dcd2" />
+
+Набор команд для диагностики
+```
+show bgp evpn summary
+show bgp evpn route-type imet
+show bgp evpn route-type mac-ip
+show vxlan vtep
+show vxlan vni
+show vxlan address-table
+```
 
 ```
 Spine1#
