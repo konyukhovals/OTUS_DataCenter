@@ -247,8 +247,10 @@ Leaf1#
 
 <img width="1091" height="828" alt="image" src="https://github.com/user-attachments/assets/2f84696f-458d-4b14-9cc1-e2dc5f147c02" />
 
+# Отдельно взятый BGP-UPDATE при clear ip bgp, чтобы спровоццировать анонсы underlay и overlay
 
-
+<img width="1033" height="822" alt="image" src="https://github.com/user-attachments/assets/95920f4d-58e8-4d54-b5f0-d75b9212e9f3" />
+не понял, если честно, откуда в Path-atribut взялась mpls-метка 637
 
 ## Spine1
 
