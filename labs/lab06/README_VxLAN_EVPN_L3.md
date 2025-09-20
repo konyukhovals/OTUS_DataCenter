@@ -76,27 +76,26 @@ sh mac address-table
 ```
 
 ```
-Spine1#
 Spine1#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.1.1.0, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.1    4 65210             99        94    0    0 01:08:29 Estab   4      4
-  10.1.0.3    4 65211             97        92    0    0 01:08:12 Estab   4      4
-  10.1.0.5    4 65212             89        91    0    0 01:07:52 Estab   4      4
-  10.255.1.10 4 65210            125       107    0    0 01:08:28 Estab   4      4
-  10.255.1.11 4 65211            122       125    0    0 01:08:11 Estab   4      4
-  10.255.1.12 4 65212            121       113    0    0 01:07:51 Estab   4      4
+  10.1.0.1    4 65210            306       305    0    0 04:06:18 Estab   4      4
+  10.1.0.3    4 65211            306       298    0    0 04:06:01 Estab   4      4
+  10.1.0.5    4 65212            298       300    0    0 04:05:41 Estab   4      4
+  10.255.1.10 4 65210            356       326    0    0 04:06:17 Estab   4      4
+  10.255.1.11 4 65211            340       360    0    0 04:06:00 Estab   4      4
+  10.255.1.12 4 65212            348       337    0    0 04:05:40 Estab   4      4
 Spine1#
 Spine1#show bgp evpn summary
 BGP summary information for VRF default
 Router identifier 10.1.1.0, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.255.1.10 4 65210            125       107    0    0 01:08:28 Estab   6      6
-  10.255.1.11 4 65211            122       125    0    0 01:08:11 Estab   2      2
-  10.255.1.12 4 65212            121       113    0    0 01:07:51 Estab   5      5
+  10.255.1.10 4 65210            356       326    0    0 04:06:17 Estab   8      8
+  10.255.1.11 4 65211            340       360    0    0 04:06:00 Estab   4      4
+  10.255.1.12 4 65212            348       337    0    0 04:05:40 Estab   7      7
 Spine1#
 Spine1#show bgp evpn route-type imet
 BGP routing table information for VRF default
@@ -170,50 +169,51 @@ Vlan    Mac Address       Type        Ports
 Total Mac Addresses for this criterion: 0
 Spine1#
 Spine1#
-Spine1#
 ```
 
+Выдача с Leaf2 самая интересная, поскольку на нем нет хостов, а вот инфа в оверлее есть
 ```
-Leaf1#
-Leaf1#show ip bgp summary
+Leaf2#
+Leaf2#show ip bgp summary
 BGP summary information for VRF default
-Router identifier 10.1.1.10, local AS number 65210
+Router identifier 10.1.1.11, local AS number 65211
 Neighbor Status Codes: m - Under maintenance
   Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.0   4 65000             93        97    0    0 01:07:33 Estab   11     11
-  10.1.0.6   4 65000             91        93    0    0 01:07:33 Estab   11     11
-  10.255.1.0 4 65000            106       124    0    0 01:07:32 Estab   11     11
-  10.255.1.1 4 65000            108       119    0    0 01:07:32 Estab   11     11
-Leaf1#
-Leaf1#show bgp evpn summary
+  10.1.0.2   4 65000            304       311    0    0 04:10:40 Estab   11     11
+  10.1.0.8   4 65000            306       310    0    0 04:10:40 Estab   11     11
+  10.255.1.0 4 65000            365       345    0    0 04:10:39 Estab   11     11
+  10.255.1.1 4 65000            365       352    0    0 04:10:38 Estab   11     11
+Leaf2#
+Leaf2#show bgp evpn summary
 BGP summary information for VRF default
-Router identifier 10.1.1.10, local AS number 65210
+Router identifier 10.1.1.11, local AS number 65211
 Neighbor Status Codes: m - Under maintenance
   Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.255.1.0 4 65000            106       124    0    0 01:07:32 Estab   7      7
-  10.255.1.1 4 65000            108       119    0    0 01:07:32 Estab   7      7
-Leaf1#
-Leaf1#show bgp evpn route-type imet
+  10.255.1.0 4 65000            365       345    0    0 04:10:39 Estab   15     15
+  10.255.1.1 4 65000            365       352    0    0 04:10:39 Estab   15     15
+Leaf2#
+
+Leaf2#show bgp evpn route-type imet
 BGP routing table information for VRF default
-Router identifier 10.1.1.10, local AS number 65210
+Router identifier 10.1.1.11, local AS number 65211
 Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
                     c - Contributing to ECMP, % - Pending BGP convergence
 Origin codes: i - IGP, e - EGP, ? - incomplete
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  LocPref Weight  Path
- * >      RD: 10.1.1.10:10 imet 10.255.1.10
+ * >Ec    RD: 10.1.1.10:10 imet 10.255.1.10
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:10 imet 10.255.1.10
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >Ec    RD: 10.1.1.10:20 imet 10.255.1.10
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:20 imet 10.255.1.10
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >      RD: 10.1.1.11:10 imet 10.255.1.11
                                  -                     -       -       0       i
- * >      RD: 10.1.1.10:20 imet 10.255.1.10
+ * >      RD: 10.1.1.11:20 imet 10.255.1.11
                                  -                     -       -       0       i
- * >Ec    RD: 10.1.1.11:10 imet 10.255.1.11
-                                 10.255.1.11           -       100     0       65000 65211 i
- *  ec    RD: 10.1.1.11:10 imet 10.255.1.11
-                                 10.255.1.11           -       100     0       65000 65211 i
- * >Ec    RD: 10.1.1.11:20 imet 10.255.1.11
-                                 10.255.1.11           -       100     0       65000 65211 i
- *  ec    RD: 10.1.1.11:20 imet 10.255.1.11
-                                 10.255.1.11           -       100     0       65000 65211 i
  * >Ec    RD: 10.1.1.12:10 imet 10.255.1.12
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:10 imet 10.255.1.12
@@ -222,28 +222,38 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:20 imet 10.255.1.12
                                  10.255.1.12           -       100     0       65000 65212 i
-Leaf1#
-Leaf1#show bgp evpn route-type mac-ip
+Leaf2#
+
+
+Leaf2#show bgp evpn route-type mac-ip
 BGP routing table information for VRF default
-Router identifier 10.1.1.10, local AS number 65210
+Router identifier 10.1.1.11, local AS number 65211
 Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
                     c - Contributing to ECMP, % - Pending BGP convergence
 Origin codes: i - IGP, e - EGP, ? - incomplete
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  LocPref Weight  Path
- * >      RD: 10.1.1.10:10 mac-ip 0050.7966.6801
-                                 -                     -       -       0       i
- * >      RD: 10.1.1.10:10 mac-ip 0050.7966.6801 192.168.10.1
-                                 -                     -       -       0       i
+ * >Ec    RD: 10.1.1.10:10 mac-ip 0050.7966.6801
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:10 mac-ip 0050.7966.6801
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >Ec    RD: 10.1.1.10:10 mac-ip 0050.7966.6801 192.168.10.1
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:10 mac-ip 0050.7966.6801 192.168.10.1
+                                 10.255.1.10           -       100     0       65000 65210 i
  * >Ec    RD: 10.1.1.12:10 mac-ip 0050.7966.6802
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:10 mac-ip 0050.7966.6802
                                  10.255.1.12           -       100     0       65000 65212 i
- * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803
-                                 -                     -       -       0       i
- * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803 192.168.20.1
-                                 -                     -       -       0       i
+ * >Ec    RD: 10.1.1.10:20 mac-ip 0050.7966.6803
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:20 mac-ip 0050.7966.6803
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >Ec    RD: 10.1.1.10:20 mac-ip 0050.7966.6803 192.168.20.1
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.1.1.10:20 mac-ip 0050.7966.6803 192.168.20.1
+                                 10.255.1.10           -       100     0       65000 65210 i
  * >Ec    RD: 10.1.1.12:20 mac-ip 0050.7966.6804
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:20 mac-ip 0050.7966.6804
@@ -252,37 +262,37 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:20 mac-ip 0050.7966.6804 192.168.20.2
                                  10.255.1.12           -       100     0       65000 65212 i
-Leaf1#
-Leaf1#show bgp evpn route-type ip-prefix
+Leaf2#
+
+Leaf2#
+Leaf2#show bgp evpn route-type ip-prefix
 % Incomplete command
-Leaf1#
-Leaf1#show vxlan vni
+Leaf2#
+Leaf2#show vxlan vni
 VNI to VLAN Mapping for Vxlan1
 VNI         VLAN       Source       Interface       802.1Q Tag
 ----------- ---------- ------------ --------------- ----------
-10100       10         static       Ethernet7       untagged  
-                                    Vxlan1          10        
-10200       20         static       Ethernet8       untagged  
-                                    Vxlan1          20        
+10100       10         static       Vxlan1          10        
+10200       20         static       Vxlan1          20        
 
 VNI to dynamic VLAN Mapping for Vxlan1
 VNI         VLAN       VRF            Source       
 ----------- ---------- -------------- ------------ 
 50000       4094       TENANT-A       evpn         
 
-Leaf1#
-Leaf1#show vxlan vtep
+Leaf2#
+Leaf2#show vxlan vtep
 Remote VTEPS for Vxlan1:
 
 VTEP              Tunnel Type(s)
 ----------------- --------------
-10.255.1.11       flood         
-10.255.1.12       flood, unicast
+10.255.1.10       unicast, flood
+10.255.1.12       unicast, flood
 
 Total number of remote VTEPS:  2
-Leaf1#
-Leaf1#show ip route vrf TENANT-A
+Leaf2#
 
+Leaf2#show ip route vrf TENANT-A
 VRF: TENANT-A
 Codes: C - connected, S - static, K - kernel, 
        O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
@@ -298,11 +308,13 @@ Codes: C - connected, S - static, K - kernel,
 
 Gateway of last resort is not set
 
+ B E      192.168.10.1/32 [200/0] via VTEP 10.255.1.10 VNI 50000 router-mac 50:ff:71:37:dd:a5 local-interface Vxlan1
  C        192.168.10.0/24 is directly connected, Vlan10
+ B E      192.168.20.1/32 [200/0] via VTEP 10.255.1.10 VNI 50000 router-mac 50:ff:71:37:dd:a5 local-interface Vxlan1
+ B E      192.168.20.2/32 [200/0] via VTEP 10.255.1.12 VNI 50000 router-mac 50:4e:16:08:a4:05 local-interface Vxlan1
  C        192.168.20.0/24 is directly connected, Vlan20
-
-Leaf1#
-Leaf1#sh mac address-table
+Leaf2#
+Leaf2#sh mac address-table
           Mac Address Table
 ------------------------------------------------------------------
 
@@ -310,13 +322,15 @@ Vlan    Mac Address       Type        Ports      Moves   Last Move
 ----    -----------       ----        -----      -----   ---------
    1    0001.0001.0001    STATIC      Cpu
   10    0001.0001.0001    STATIC      Cpu
-  10    0050.7966.6801    DYNAMIC     Et7        1       0:01:31 ago
-  10    0050.7966.6802    DYNAMIC     Vx1        1       0:01:31 ago
+  10    0050.7966.6801    DYNAMIC     Vx1        1       0:04:47 ago
+  10    0050.7966.6802    DYNAMIC     Vx1        1       0:04:42 ago
   20    0001.0001.0001    STATIC      Cpu
-  20    0050.7966.6803    DYNAMIC     Et8        1       0:01:26 ago
-  20    0050.7966.6804    DYNAMIC     Vx1        1       0:01:28 ago
+  20    0050.7966.6803    DYNAMIC     Vx1        1       0:04:45 ago
+  20    0050.7966.6804    DYNAMIC     Vx1        1       0:04:47 ago
 4094    0001.0001.0001    STATIC      Cpu
-Total Mac Addresses for this criterion: 8
+4094    504e.1608.a405    DYNAMIC     Vx1        1       0:36:08 ago
+4094    50ff.7137.dda5    DYNAMIC     Vx1        1       0:35:55 ago
+Total Mac Addresses for this criterion: 10
 
           Multicast Mac Address Table
 ------------------------------------------------------------------
@@ -324,9 +338,8 @@ Total Mac Addresses for this criterion: 8
 Vlan    Mac Address       Type        Ports
 ----    -----------       ----        -----
 Total Mac Addresses for this criterion: 0
-Leaf1#
-Leaf1#
-Leaf1#
+Leaf2#
+
 ```
 
 
