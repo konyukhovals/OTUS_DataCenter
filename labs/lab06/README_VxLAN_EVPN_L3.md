@@ -82,21 +82,21 @@ BGP summary information for VRF default
 Router identifier 10.1.1.0, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.1    4 65210             29        28    0    0 00:16:44 Estab   4      4
-  10.1.0.3    4 65211             26        28    0    0 00:16:31 Estab   6      6
-  10.1.0.5    4 65212             25        27    0    0 00:16:17 Estab   6      6
-  10.255.1.10 4 65210             50        40    0    0 00:16:43 Estab   4      4
-  10.255.1.11 4 65211             42        47    0    0 00:16:30 Estab   6      6
-  10.255.1.12 4 65212             42        40    0    0 00:16:16 Estab   6      6
+  10.1.0.1    4 65210             99        94    0    0 01:08:29 Estab   4      4
+  10.1.0.3    4 65211             97        92    0    0 01:08:12 Estab   4      4
+  10.1.0.5    4 65212             89        91    0    0 01:07:52 Estab   4      4
+  10.255.1.10 4 65210            125       107    0    0 01:08:28 Estab   4      4
+  10.255.1.11 4 65211            122       125    0    0 01:08:11 Estab   4      4
+  10.255.1.12 4 65212            121       113    0    0 01:07:51 Estab   4      4
 Spine1#
 Spine1#show bgp evpn summary
 BGP summary information for VRF default
 Router identifier 10.1.1.0, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.255.1.10 4 65210             50        40    0    0 00:16:43 Estab   6      6
-  10.255.1.11 4 65211             42        47    0    0 00:16:30 Estab   2      2
-  10.255.1.12 4 65212             42        40    0    0 00:16:16 Estab   6      6
+  10.255.1.10 4 65210            125       107    0    0 01:08:28 Estab   6      6
+  10.255.1.11 4 65211            122       125    0    0 01:08:11 Estab   2      2
+  10.255.1.12 4 65212            121       113    0    0 01:07:51 Estab   5      5
 Spine1#
 Spine1#show bgp evpn route-type imet
 BGP routing table information for VRF default
@@ -135,8 +135,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
                                  10.255.1.10           -       100     0       65210 i
  * >      RD: 10.1.1.12:10 mac-ip 0050.7966.6802
                                  10.255.1.12           -       100     0       65212 i
- * >      RD: 10.1.1.12:10 mac-ip 0050.7966.6802 192.168.10.2
-                                 10.255.1.12           -       100     0       65212 i
  * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803
                                  10.255.1.10           -       100     0       65210 i
  * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803 192.168.20.1
@@ -146,15 +144,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      RD: 10.1.1.12:20 mac-ip 0050.7966.6804 192.168.20.2
                                  10.255.1.12           -       100     0       65212 i
 Spine1#
-Spine1#show bgp evpn route-type ip-prefix ipv4
-BGP routing table information for VRF default
-Router identifier 10.1.1.0, local AS number 65000
-Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
-                    c - Contributing to ECMP, % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
-
-          Network                Next Hop              Metric  LocPref Weight  Path
+Spine1#show bgp evpn route-type ip-prefix
+% Incomplete command
 Spine1#
 Spine1#show vxlan vni
 Spine1#
@@ -178,33 +169,29 @@ Vlan    Mac Address       Type        Ports
 ----    -----------       ----        -----
 Total Mac Addresses for this criterion: 0
 Spine1#
+Spine1#
+Spine1#
 ```
 
 ```
-
-Leaf1#
-Leaf1#
-Leaf1#
-Leaf1#
-Leaf1#
 Leaf1#
 Leaf1#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.1.1.10, local AS number 65210
 Neighbor Status Codes: m - Under maintenance
   Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.0   4 65000             32        33    0    0 00:20:00 Estab   13     13
-  10.1.0.6   4 65000             32        37    0    0 00:20:00 Estab   13     13
-  10.255.1.0 4 65000             44        53    0    0 00:19:59 Estab   13     13
-  10.255.1.1 4 65000             44        54    0    0 00:19:59 Estab   13     13
+  10.1.0.0   4 65000             93        97    0    0 01:07:33 Estab   11     11
+  10.1.0.6   4 65000             91        93    0    0 01:07:33 Estab   11     11
+  10.255.1.0 4 65000            106       124    0    0 01:07:32 Estab   11     11
+  10.255.1.1 4 65000            108       119    0    0 01:07:32 Estab   11     11
 Leaf1#
 Leaf1#show bgp evpn summary
 BGP summary information for VRF default
 Router identifier 10.1.1.10, local AS number 65210
 Neighbor Status Codes: m - Under maintenance
   Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.255.1.0 4 65000             44        53    0    0 00:19:59 Estab   8      8
-  10.255.1.1 4 65000             44        54    0    0 00:19:59 Estab   8      8
+  10.255.1.0 4 65000            106       124    0    0 01:07:32 Estab   7      7
+  10.255.1.1 4 65000            108       119    0    0 01:07:32 Estab   7      7
 Leaf1#
 Leaf1#show bgp evpn route-type imet
 BGP routing table information for VRF default
@@ -253,10 +240,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
                                  10.255.1.12           -       100     0       65000 65212 i
  *  ec    RD: 10.1.1.12:10 mac-ip 0050.7966.6802
                                  10.255.1.12           -       100     0       65000 65212 i
- * >Ec    RD: 10.1.1.12:10 mac-ip 0050.7966.6802 192.168.10.2
-                                 10.255.1.12           -       100     0       65000 65212 i
- *  ec    RD: 10.1.1.12:10 mac-ip 0050.7966.6802 192.168.10.2
-                                 10.255.1.12           -       100     0       65000 65212 i
  * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803
                                  -                     -       -       0       i
  * >      RD: 10.1.1.10:20 mac-ip 0050.7966.6803 192.168.20.1
@@ -270,15 +253,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *  ec    RD: 10.1.1.12:20 mac-ip 0050.7966.6804 192.168.20.2
                                  10.255.1.12           -       100     0       65000 65212 i
 Leaf1#
-Leaf1#show bgp evpn route-type ip-prefix ipv4
-BGP routing table information for VRF default
-Router identifier 10.1.1.10, local AS number 65210
-Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
-                    c - Contributing to ECMP, % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
-
-          Network                Next Hop              Metric  LocPref Weight  Path
+Leaf1#show bgp evpn route-type ip-prefix
+% Incomplete command
 Leaf1#
 Leaf1#show vxlan vni
 VNI to VLAN Mapping for Vxlan1
@@ -334,11 +310,11 @@ Vlan    Mac Address       Type        Ports      Moves   Last Move
 ----    -----------       ----        -----      -----   ---------
    1    0001.0001.0001    STATIC      Cpu
   10    0001.0001.0001    STATIC      Cpu
-  10    0050.7966.6801    DYNAMIC     Et7        1       0:18:06 ago
-  10    0050.7966.6802    DYNAMIC     Vx1        1       0:03:19 ago
+  10    0050.7966.6801    DYNAMIC     Et7        1       0:01:31 ago
+  10    0050.7966.6802    DYNAMIC     Vx1        1       0:01:31 ago
   20    0001.0001.0001    STATIC      Cpu
-  20    0050.7966.6803    DYNAMIC     Et8        1       0:05:55 ago
-  20    0050.7966.6804    DYNAMIC     Vx1        1       0:03:24 ago
+  20    0050.7966.6803    DYNAMIC     Et8        1       0:01:26 ago
+  20    0050.7966.6804    DYNAMIC     Vx1        1       0:01:28 ago
 4094    0001.0001.0001    STATIC      Cpu
 Total Mac Addresses for this criterion: 8
 
