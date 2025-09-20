@@ -334,433 +334,571 @@ Leaf1#
 ## Spine1
 
 ```
+Spine1#
+Spine1#sh run
+! Command: show running-config
+! device: Spine1 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
 hostname Spine1
-zerotouch disable
-ip routing
-
-! Loopbacks
-interface Loopback0
-  ip address 10.1.1.0/32
-interface Loopback1
-  ip address 10.255.1.0/32
-
-! P2P links
+!
+spanning-tree mode mstp
+!
 interface Ethernet1
-  no switchport
-  ip address 10.1.0.0/31
+   no switchport
+   ip address 10.1.0.0/31
+!
 interface Ethernet2
-  no switchport
-  ip address 10.1.0.2/31
+   no switchport
+   ip address 10.1.0.2/31
+!
 interface Ethernet3
-  no switchport
-  ip address 10.1.0.4/31
-
-! Underlay BGP
+   no switchport
+   ip address 10.1.0.4/31
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 10.1.1.0/32
+!
+interface Loopback1
+   ip address 10.255.1.0/32
+!
+interface Management1
+!
+ip routing
+!
 router bgp 65000
-  router-id 10.1.1.0
-  neighbor 10.1.0.1 remote-as 65210
-  neighbor 10.1.0.3 remote-as 65211
-  neighbor 10.1.0.5 remote-as 65212
-  address-family ipv4
-    neighbor 10.1.0.1 activate
-    neighbor 10.1.0.3 activate
-    neighbor 10.1.0.5 activate
-    network 10.1.1.0/32
-    network 10.255.1.0/32
-    network 10.1.0.0/31
-    network 10.1.0.2/31
-    network 10.1.0.4/31
-    maximum-paths 4
-  exit
-
-! EVPN overlay (RR/tranzit)
-router bgp 65000
-  neighbor 10.255.1.10 remote-as 65210
-  neighbor 10.255.1.11 remote-as 65211
-  neighbor 10.255.1.12 remote-as 65212
-  neighbor 10.255.1.10 update-source Loopback1
-  neighbor 10.255.1.11 update-source Loopback1
-  neighbor 10.255.1.12 update-source Loopback1
-  neighbor 10.255.1.10 ebgp-multihop 3
-  neighbor 10.255.1.11 ebgp-multihop 3
-  neighbor 10.255.1.12 ebgp-multihop 3
-  address-family evpn
-    neighbor 10.255.1.10 activate
-    neighbor 10.255.1.11 activate
-    neighbor 10.255.1.12 activate
-    neighbor 10.255.1.10 send-community extended
-    neighbor 10.255.1.11 send-community extended
-    neighbor 10.255.1.12 send-community extended
-    neighbor 10.255.1.10 next-hop-unchanged
-    neighbor 10.255.1.11 next-hop-unchanged
-    neighbor 10.255.1.12 next-hop-unchanged
-  exit
+   router-id 10.1.1.0
+   maximum-paths 4
+   neighbor 10.1.0.1 remote-as 65210
+   neighbor 10.1.0.3 remote-as 65211
+   neighbor 10.1.0.5 remote-as 65212
+   neighbor 10.255.1.10 remote-as 65210
+   neighbor 10.255.1.10 next-hop-unchanged
+   neighbor 10.255.1.10 update-source Loopback1
+   neighbor 10.255.1.10 ebgp-multihop 3
+   neighbor 10.255.1.10 send-community extended
+   neighbor 10.255.1.11 remote-as 65211
+   neighbor 10.255.1.11 next-hop-unchanged
+   neighbor 10.255.1.11 update-source Loopback1
+   neighbor 10.255.1.11 ebgp-multihop 3
+   neighbor 10.255.1.11 send-community extended
+   neighbor 10.255.1.12 remote-as 65212
+   neighbor 10.255.1.12 next-hop-unchanged
+   neighbor 10.255.1.12 update-source Loopback1
+   neighbor 10.255.1.12 ebgp-multihop 3
+   neighbor 10.255.1.12 send-community extended
+   !
+   address-family evpn
+      neighbor 10.255.1.10 activate
+      neighbor 10.255.1.11 activate
+      neighbor 10.255.1.12 activate
+   !
+   address-family ipv4
+      neighbor 10.1.0.1 activate
+      neighbor 10.1.0.3 activate
+      neighbor 10.1.0.5 activate
+      network 10.1.0.0/31
+      network 10.1.0.2/31
+      network 10.1.0.4/31
+      network 10.1.1.0/32
+      network 10.255.1.0/32
+!
 end
+Spine1#
 
 ```
 
 ## Spine2
 
 ```
+Spine2#sh run
+! Command: show running-config
+! device: Spine2 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
 hostname Spine2
-zerotouch disable
-ip routing
-
-interface Loopback0
-  ip address 10.1.1.1/32
-interface Loopback1
-  ip address 10.255.1.1/32
-
+!
+spanning-tree mode mstp
+!
 interface Ethernet1
-  no switchport
-  ip address 10.1.0.6/31
+   no switchport
+   ip address 10.1.0.6/31
+!
 interface Ethernet2
-  no switchport
-  ip address 10.1.0.8/31
+   no switchport
+   ip address 10.1.0.8/31
+!
 interface Ethernet3
-  no switchport
-  ip address 10.1.0.10/31
-
+   no switchport
+   ip address 10.1.0.10/31
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 10.1.1.1/32
+!
+interface Loopback1
+   ip address 10.255.1.1/32
+!
+interface Management1
+!
+ip routing
+!
 router bgp 65000
-  router-id 10.1.1.1
-  neighbor 10.1.0.7 remote-as 65210
-  neighbor 10.1.0.9 remote-as 65211
-  neighbor 10.1.0.11 remote-as 65212
-  address-family ipv4
-    neighbor 10.1.0.7 activate
-    neighbor 10.1.0.9 activate
-    neighbor 10.1.0.11 activate
-    network 10.1.1.1/32
-    network 10.255.1.1/32
-    network 10.1.0.6/31
-    network 10.1.0.8/31
-    network 10.1.0.10/31
-    maximum-paths 4
-  exit
-
-router bgp 65000
-  neighbor 10.255.1.10 remote-as 65210
-  neighbor 10.255.1.11 remote-as 65211
-  neighbor 10.255.1.12 remote-as 65212
-  neighbor 10.255.1.10 update-source Loopback1
-  neighbor 10.255.1.11 update-source Loopback1
-  neighbor 10.255.1.12 update-source Loopback1
-  neighbor 10.255.1.10 ebgp-multihop 3
-  neighbor 10.255.1.11 ebgp-multihop 3
-  neighbor 10.255.1.12 ebgp-multihop 3
-  address-family evpn
-    neighbor 10.255.1.10 activate
-    neighbor 10.255.1.11 activate
-    neighbor 10.255.1.12 activate
-    neighbor 10.255.1.10 send-community extended
-    neighbor 10.255.1.11 send-community extended
-    neighbor 10.255.1.12 send-community extended
-    neighbor 10.255.1.10 next-hop-unchanged
-    neighbor 10.255.1.11 next-hop-unchanged
-    neighbor 10.255.1.12 next-hop-unchanged
-  exit
+   router-id 10.1.1.1
+   maximum-paths 4
+   neighbor 10.1.0.7 remote-as 65210
+   neighbor 10.1.0.9 remote-as 65211
+   neighbor 10.1.0.11 remote-as 65212
+   neighbor 10.255.1.10 remote-as 65210
+   neighbor 10.255.1.10 next-hop-unchanged
+   neighbor 10.255.1.10 update-source Loopback1
+   neighbor 10.255.1.10 ebgp-multihop 3
+   neighbor 10.255.1.10 send-community extended
+   neighbor 10.255.1.11 remote-as 65211
+   neighbor 10.255.1.11 next-hop-unchanged
+   neighbor 10.255.1.11 update-source Loopback1
+   neighbor 10.255.1.11 ebgp-multihop 3
+   neighbor 10.255.1.11 send-community extended
+   neighbor 10.255.1.12 remote-as 65212
+   neighbor 10.255.1.12 next-hop-unchanged
+   neighbor 10.255.1.12 update-source Loopback1
+   neighbor 10.255.1.12 ebgp-multihop 3
+   neighbor 10.255.1.12 send-community extended
+   !
+   address-family evpn
+      neighbor 10.255.1.10 activate
+      neighbor 10.255.1.11 activate
+      neighbor 10.255.1.12 activate
+   !
+   address-family ipv4
+      neighbor 10.1.0.7 activate
+      neighbor 10.1.0.9 activate
+      neighbor 10.1.0.11 activate
+      network 10.1.0.6/31
+      network 10.1.0.8/31
+      network 10.1.0.10/31
+      network 10.1.1.1/32
+      network 10.255.1.1/32
+!
 end
+Spine2#
 
 ```
 
 ## Leaf1
 
 ```
-hostname Leaf1
-zerotouch disable
-ip routing
+Leaf1#
+Leaf1#sh run
+! Command: show running-config
+! device: Leaf1 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
 service routing protocols model multi-agent
-
-! Anycast GW MAC
-ip virtual-router mac-address 0001.0001.0001
-
-! Loopbacks
-interface Loopback0
-  ip address 10.1.1.10/32
-interface Loopback1
-  ip address 10.255.1.10/32
-
-! P2P to spines
-interface Ethernet1
-  no switchport
-  ip address 10.1.0.1/31
-interface Ethernet2
-  no switchport
-  ip address 10.1.0.7/31
-
-! Access ports to clients
-vlan 10
-vlan 20
-interface Ethernet7
-  switchport
-  switchport mode access
-  switchport access vlan 10
-  spanning-tree portfast
-interface Ethernet8
-  switchport
-  switchport mode access
-  switchport access vlan 20
-  spanning-tree portfast
-
-! SVI with Anycast GW
-interface Vlan10
-  vrf TENANT-A
-  ip address virtual 192.168.10.254/24
-interface Vlan20
-  vrf TENANT-A
-  ip address virtual 192.168.20.254/24
-
-! VRF and L3VNI
+!
+hostname Leaf1
+!
+spanning-tree mode mstp
+!
+vlan 10,20
+!
 vrf instance TENANT-A
-ip routing vrf TENANT-A
-
-! VTEP
+!
+interface Ethernet1
+   no switchport
+   ip address 10.1.0.1/31
+!
+interface Ethernet2
+   no switchport
+   ip address 10.1.0.7/31
+!
+interface Ethernet3
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+   switchport access vlan 10
+   spanning-tree portfast
+!
+interface Ethernet8
+   switchport access vlan 20
+   spanning-tree portfast
+!
+interface Loopback0
+   ip address 10.1.1.10/32
+!
+interface Loopback1
+   ip address 10.255.1.10/32
+!
+interface Management1
+!
+interface Vlan10
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.10.254/24
+!
+interface Vlan20
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.20.254/24
+!
 interface Vxlan1
-  vxlan source-interface Loopback1
-  vxlan udp-port 4789
-  vxlan vlan 10 vni 10100
-  vxlan vlan 20 vni 10200
-  vxlan vrf TENANT-A vni 50000
-
-! Underlay BGP
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 10 vni 10100
+   vxlan vlan 20 vni 10200
+   vxlan vrf TENANT-A vni 50000
+!
+ip virtual-router mac-address 00:01:00:01:00:01
+!
+ip routing
+ip routing vrf TENANT-A
+!
+ip route vrf TENANT-A 192.168.10.0/24 Null0
+ip route vrf TENANT-A 192.168.20.0/24 Null0
+!
 router bgp 65210
-  router-id 10.1.1.10
-  neighbor 10.1.0.0 remote-as 65000
-  neighbor 10.1.0.6 remote-as 65000
-  address-family ipv4
-    neighbor 10.1.0.0 activate
-    neighbor 10.1.0.6 activate
-    network 10.1.1.10/32
-    network 10.255.1.10/32
-    network 10.1.0.1/31
-    network 10.1.0.7/31
-    maximum-paths 4
-  exit
-
-! EVPN (L2/L3 VNI)
-router bgp 65210
-  neighbor 10.255.1.0 remote-as 65000
-  neighbor 10.255.1.1 remote-as 65000
-  neighbor 10.255.1.0 update-source Loopback1
-  neighbor 10.255.1.1 update-source Loopback1
-  neighbor 10.255.1.0 ebgp-multihop 3
-  neighbor 10.255.1.1 ebgp-multihop 3
-
-  vlan 10
-    rd auto
-    route-target both 10100:10100
-    redistribute learned
-  vlan 20
-    rd auto
-    route-target both 10200:10200
-    redistribute learned
-
-  vrf TENANT-A
-    rd auto
-    route-target import evpn 50000:50000
-    route-target export evpn 50000:50000
-    neighbor default next-hop-self received-evpn-routes route-type ip-prefix
-    redistribute connected
-
-  address-family evpn
-    neighbor 10.255.1.0 activate
-    neighbor 10.255.1.1 activate
-    neighbor 10.255.1.0 send-community extended
-    neighbor 10.255.1.1 send-community extended
-  exit
+   router-id 10.1.1.10
+   rd auto
+   maximum-paths 4
+   neighbor 10.1.0.0 remote-as 65000
+   neighbor 10.1.0.6 remote-as 65000
+   neighbor 10.255.1.0 remote-as 65000
+   neighbor 10.255.1.0 update-source Loopback1
+   neighbor 10.255.1.0 ebgp-multihop 3
+   neighbor 10.255.1.0 send-community extended
+   neighbor 10.255.1.1 remote-as 65000
+   neighbor 10.255.1.1 update-source Loopback1
+   neighbor 10.255.1.1 ebgp-multihop 3
+   neighbor 10.255.1.1 send-community extended
+   redistribute connected
+   !
+   vlan 10
+      rd auto
+      route-target both 10100:10100
+      redistribute learned
+   !
+   vlan 20
+      rd auto
+      route-target both 10200:10200
+      redistribute learned
+   !
+   address-family evpn
+      neighbor 10.255.1.0 activate
+      neighbor 10.255.1.1 activate
+   !
+   address-family ipv4
+      neighbor 10.1.0.0 activate
+      neighbor 10.1.0.6 activate
+      network 10.1.0.0/31
+      network 10.1.0.6/31
+      network 10.1.1.10/32
+      network 10.255.1.10/32
+   !
+   vrf TENANT-A
+      rd 10.255.1.10:50000
+      route-target import 50000:50000
+      route-target export 50000:50000
+      redistribute connected
+!
 end
-
+Leaf1#
 ```
 
 ## Leaf2
 
 ```
-hostname Leaf2
-zerotouch disable
-ip routing
+Leaf2#
+Leaf2#sh run
+! Command: show running-config
+! device: Leaf2 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
 service routing protocols model multi-agent
-
-ip virtual-router mac-address 0001.0001.0001
-
-interface Loopback0
-  ip address 10.1.1.11/32
-interface Loopback1
-  ip address 10.255.1.11/32
-
-interface Ethernet1
-  no switchport
-  ip address 10.1.0.3/31
-interface Ethernet2
-  no switchport
-  ip address 10.1.0.9/31
-
-vlan 10
-vlan 20
-
-interface Vlan10
-  vrf TENANT-A
-  ip address virtual 192.168.10.254/24
-interface Vlan20
-  vrf TENANT-A
-  ip address virtual 192.168.20.254/24
-
+!
+hostname Leaf2
+!
+spanning-tree mode mstp
+!
+vlan 10,20
+!
 vrf instance TENANT-A
-ip routing vrf TENANT-A
-
+!
+interface Ethernet1
+   no switchport
+   ip address 10.1.0.3/31
+!
+interface Ethernet2
+   no switchport
+   ip address 10.1.0.9/31
+!
+interface Ethernet3
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 10.1.1.11/32
+!
+interface Loopback1
+   ip address 10.255.1.11/32
+!
+interface Management1
+!
+interface Vlan10
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.10.254/24
+!
+interface Vlan20
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.20.254/24
+!
 interface Vxlan1
-  vxlan source-interface Loopback1
-  vxlan udp-port 4789
-  vxlan vlan 10 vni 10100
-  vxlan vlan 20 vni 10200
-  vxlan vrf TENANT-A vni 50000
-
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 10 vni 10100
+   vxlan vlan 20 vni 10200
+   vxlan vrf TENANT-A vni 50000
+!
+ip virtual-router mac-address 00:01:00:01:00:01
+!
+ip routing
+ip routing vrf TENANT-A
+!
+ip route vrf TENANT-A 192.168.10.0/24 Null0
+ip route vrf TENANT-A 192.168.20.0/24 Null0
+!
 router bgp 65211
-  router-id 10.1.1.11
-  neighbor 10.1.0.2 remote-as 65000
-  neighbor 10.1.0.8 remote-as 65000
-  address-family ipv4
-    neighbor 10.1.0.2 activate
-    neighbor 10.1.0.8 activate
-    network 10.1.1.11/32
-    network 10.255.1.11/32
-    network 10.1.0.3/31
-    network 10.1.0.9/31
-    maximum-paths 4
-  exit
-
-router bgp 65211
-  neighbor 10.255.1.0 remote-as 65000
-  neighbor 10.255.1.1 remote-as 65000
-  neighbor 10.255.1.0 update-source Loopback1
-  neighbor 10.255.1.1 update-source Loopback1
-  neighbor 10.255.1.0 ebgp-multihop 3
-  neighbor 10.255.1.1 ebgp-multihop 3
-
-  vlan 10
-    rd auto
-    route-target both 10100:10100
-    redistribute learned
-  vlan 20
-    rd auto
-    route-target both 10200:10200
-    redistribute learned
-
-  vrf TENANT-A
-    rd auto
-    route-target import evpn 50000:50000
-    route-target export evpn 50000:50000
-    neighbor default next-hop-self received-evpn-routes route-type ip-prefix
-    redistribute connected
-
-  address-family evpn
-    neighbor 10.255.1.0 activate
-    neighbor 10.255.1.1 activate
-    neighbor 10.255.1.0 send-community extended
-    neighbor 10.255.1.1 send-community extended
-  exit
+   router-id 10.1.1.11
+   rd auto
+   maximum-paths 4
+   neighbor 10.1.0.2 remote-as 65000
+   neighbor 10.1.0.8 remote-as 65000
+   neighbor 10.255.1.0 remote-as 65000
+   neighbor 10.255.1.0 update-source Loopback1
+   neighbor 10.255.1.0 ebgp-multihop 3
+   neighbor 10.255.1.0 send-community extended
+   neighbor 10.255.1.1 remote-as 65000
+   neighbor 10.255.1.1 update-source Loopback1
+   neighbor 10.255.1.1 ebgp-multihop 3
+   neighbor 10.255.1.1 send-community extended
+   redistribute connected
+   !
+   vlan 10
+      rd auto
+      route-target both 10100:10100
+      redistribute learned
+   !
+   vlan 20
+      rd auto
+      route-target both 10200:10200
+      redistribute learned
+   !
+   address-family evpn
+      neighbor 10.255.1.0 activate
+      neighbor 10.255.1.1 activate
+   !
+   address-family ipv4
+      neighbor 10.1.0.2 activate
+      neighbor 10.1.0.8 activate
+      network 10.1.0.2/31
+      network 10.1.0.8/31
+      network 10.1.1.11/32
+      network 10.255.1.11/32
+   !
+   vrf TENANT-A
+      rd 10.255.1.11:50000
+      route-target import 50000:50000
+      route-target export 50000:50000
+      redistribute connected
+!
 end
-
+Leaf2#
 ```
 
 ## Leaf3
 
 ```
-hostname Leaf3
-zerotouch disable
-ip routing
+Leaf3#
+Leaf3#sh run
+! Command: show running-config
+! device: Leaf3 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
 service routing protocols model multi-agent
-
-ip virtual-router mac-address 0001.0001.0001
-
-interface Loopback0
-  ip address 10.1.1.12/32
-interface Loopback1
-  ip address 10.255.1.12/32
-
-interface Ethernet1
-  no switchport
-  ip address 10.1.0.5/31
-interface Ethernet2
-  no switchport
-  ip address 10.1.0.11/31
-
-! Access ports к клиентам
-vlan 10
-vlan 20
-interface Ethernet7
-  switchport
-  switchport mode access
-  switchport access vlan 10
-  spanning-tree portfast
-interface Ethernet8
-  switchport
-  switchport mode access
-  switchport access vlan 20
-  spanning-tree portfast
-
-interface Vlan10
-  vrf TENANT-A
-  ip address virtual 192.168.10.254/24
-interface Vlan20
-  vrf TENANT-A
-  ip address virtual 192.168.20.254/24
-
+!
+hostname Leaf3
+!
+spanning-tree mode mstp
+!
+vlan 10,20
+!
 vrf instance TENANT-A
-ip routing vrf TENANT-A
-
+!
+interface Ethernet1
+   no switchport
+   ip address 10.1.0.5/31
+!
+interface Ethernet2
+   no switchport
+   ip address 10.1.0.11/31
+!
+interface Ethernet3
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+   switchport access vlan 10
+   spanning-tree portfast
+!
+interface Ethernet8
+   switchport access vlan 20
+   spanning-tree portfast
+!
+interface Loopback0
+   ip address 10.1.1.12/32
+!
+interface Loopback1
+   ip address 10.255.1.12/32
+!
+interface Management1
+!
+interface Vlan10
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.10.254/24
+!
+interface Vlan20
+   no autostate
+   vrf TENANT-A
+   ip address virtual 192.168.20.254/24
+!
 interface Vxlan1
-  vxlan source-interface Loopback1
-  vxlan udp-port 4789
-  vxlan vlan 10 vni 10100
-  vxlan vlan 20 vni 10200
-  vxlan vrf TENANT-A vni 50000
-
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 10 vni 10100
+   vxlan vlan 20 vni 10200
+   vxlan vrf TENANT-A vni 50000
+!
+ip virtual-router mac-address 00:01:00:01:00:01
+!
+ip routing
+ip routing vrf TENANT-A
+!
+ip route vrf TENANT-A 192.168.10.0/24 Null0
+ip route vrf TENANT-A 192.168.20.0/24 Null0
+!
 router bgp 65212
-  router-id 10.1.1.12
-  neighbor 10.1.0.4 remote-as 65000
-  neighbor 10.1.0.10 remote-as 65000
-  address-family ipv4
-    neighbor 10.1.0.4 activate
-    neighbor 10.1.0.10 activate
-    network 10.1.1.12/32
-    network 10.255.1.12/32
-    network 10.1.0.5/31
-    network 10.1.0.11/31
-    maximum-paths 4
-  exit
-
-router bgp 65212
-  neighbor 10.255.1.0 remote-as 65000
-  neighbor 10.255.1.1 remote-as 65000
-  neighbor 10.255.1.0 update-source Loopback1
-  neighbor 10.255.1.1 update-source Loopback1
-  neighbor 10.255.1.0 ebgp-multihop 3
-  neighbor 10.255.1.1 ebgp-multihop 3
-
-  vlan 10
-    rd auto
-    route-target both 10100:10100
-    redistribute learned
-  vlan 20
-    rd auto
-    route-target both 10200:10200
-    redistribute learned
-
-  vrf TENANT-A
-    rd auto
-    route-target import evpn 50000:50000
-    route-target export evpn 50000:50000
-    neighbor default next-hop-self received-evpn-routes route-type ip-prefix
-    redistribute connected
-
-  address-family evpn
-    neighbor 10.255.1.0 activate
-    neighbor 10.255.1.1 activate
-    neighbor 10.255.1.0 send-community extended
-    neighbor 10.255.1.1 send-community extended
-  exit
+   router-id 10.1.1.12
+   rd auto
+   maximum-paths 4
+   neighbor 10.1.0.4 remote-as 65000
+   neighbor 10.1.0.10 remote-as 65000
+   neighbor 10.255.1.0 remote-as 65000
+   neighbor 10.255.1.0 update-source Loopback1
+   neighbor 10.255.1.0 ebgp-multihop 3
+   neighbor 10.255.1.0 send-community extended
+   neighbor 10.255.1.1 remote-as 65000
+   neighbor 10.255.1.1 update-source Loopback1
+   neighbor 10.255.1.1 ebgp-multihop 3
+   neighbor 10.255.1.1 send-community extended
+   redistribute connected
+   !
+   vlan 10
+      rd auto
+      route-target both 10100:10100
+      redistribute learned
+   !
+   vlan 20
+      rd auto
+      route-target both 10200:10200
+      redistribute learned
+   !
+   address-family evpn
+      neighbor 10.255.1.0 activate
+      neighbor 10.255.1.1 activate
+   !
+   address-family ipv4
+      neighbor 10.1.0.4 activate
+      neighbor 10.1.0.10 activate
+      network 10.1.0.4/31
+      network 10.1.0.10/31
+      network 10.1.1.12/32
+      network 10.255.1.12/32
+   !
+   vrf TENANT-A
+      rd 10.255.1.12:50000
+      route-target import 50000:50000
+      route-target export 50000:50000
+      redistribute connected
+!
 end
-
+Leaf3#
 ```
 
 # Механика
