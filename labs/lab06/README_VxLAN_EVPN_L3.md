@@ -52,14 +52,13 @@ reload
 
 <img width="742" height="314" alt="image" src="https://github.com/user-attachments/assets/2b67dae5-6189-43ac-a41b-ba5b24427aef" />
 
-Святой и невинный пинг
-<img width="877" height="799" alt="image" src="https://github.com/user-attachments/assets/7ad62e13-61a3-4e6e-95bc-3468ad8c3c75" />
+Святой и невинный пинг - теперь он таскается через NVI50000
+<img width="947" height="740" alt="изображение" src="https://github.com/user-attachments/assets/70db6962-4862-46a8-933c-4c257dd8c49d" />
+
 
 Чего только BGP с собой не таскает
-<img width="867" height="837" alt="image" src="https://github.com/user-attachments/assets/8210f7e9-48fc-4c42-a672-f2fbd18a35a1" />
-<img width="674" height="511" alt="image" src="https://github.com/user-attachments/assets/ec12af68-5793-40a6-a7da-05f4751e3df9" />
-<img width="512" height="551" alt="image" src="https://github.com/user-attachments/assets/9b3e4111-0f7d-4f32-97ed-6688f04b5823" />
-
+<img width="938" height="809" alt="изображение" src="https://github.com/user-attachments/assets/03a33a3b-02e6-428d-9ef3-18157b742920" />
+<img width="903" height="1061" alt="изображение" src="https://github.com/user-attachments/assets/cf15e6ee-1aa6-457a-ad11-2dbf3d97f6e1" />
 
 Набор команд для диагностики (sh mac add - для Leaf)
 
