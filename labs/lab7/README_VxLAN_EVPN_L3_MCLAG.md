@@ -1,6 +1,5 @@
 
-Hometask 2.12 - VxLAN EVPN L3 - Arista 4.29.2F
-Перешел на Аристу, не смог в Cisco Nexus нормально запустить VxLAN EVPN
+Hometask 2.14 - VxLAN EVPN L3 + MC-LAG
 
 # Наша топология
 
