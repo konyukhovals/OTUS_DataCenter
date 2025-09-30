@@ -59,6 +59,14 @@ reload
 
 # Демонстрация работы схемы
 
+Простые пинги по схеме
+<img width="2167" height="1282" alt="image" src="https://github.com/user-attachments/assets/0402a6b6-1c25-497f-8011-0b06dd3540e3" />
+
+Тушим Leaf2, смотрим на пинги. Таймауты дикие. Связываю такое поведение просто с pnetlab, не должно так себя вести
+<img width="1728" height="1308" alt="image" src="https://github.com/user-attachments/assets/7a71f42c-65bb-40ae-a6de-7271e3cec64d" />
+
+<img width="2091" height="1313" alt="image" src="https://github.com/user-attachments/assets/219f8cea-b549-43a5-bfe1-b9e7cb52e210" />
+
 
 Набор команд для диагностики (sh mac add - для Leaf)
 
@@ -75,9 +83,301 @@ sh mac address-table
 ```
 
 ```
+show mlag
+show mlag detail
+show mlag interfaces
+show interfaces Port-Channel200 status
+show interfaces Port-Channel200
+show interfaces Vlan4093
+show ip virtual-router
+```
 
 ```
 
+Leaf1#
+Leaf1#show mlag
+ Port-Channel200
+
+show interfaces Vlan4093
+
+
+
+
+
+show ip virtual-router
+
+MLAG Configuration:              
+domain-id                          :              MLAG12
+local-interface                    :            Vlan4093
+peer-address                       :        169.254.12.2
+peer-link                          :     Port-Channel200
+peer-config                        :          consistent
+                                                       
+MLAG Status:                     
+state                              :              Active
+negotiation status                 :           Connected
+peer-link status                   :                  Up
+local-int status                   :                  Up
+system-id                          :   52:19:85:f6:c1:c7
+dual-primary detection             :            Disabled
+dual-primary interface errdisabled :               False
+                                                       
+MLAG Ports:                      
+Disabled                           :                   0
+Configured                         :                   0
+Inactive                           :                   0
+Active-partial                     :                   0
+Active-full                        :                   1
+
+Leaf1#
+Leaf1#show mlag detail
+MLAG Configuration:              
+domain-id                          :              MLAG12
+local-interface                    :            Vlan4093
+peer-address                       :        169.254.12.2
+peer-link                          :     Port-Channel200
+peer-config                        :          consistent
+                                                       
+MLAG Status:                     
+state                              :              Active
+negotiation status                 :           Connected
+peer-link status                   :                  Up
+local-int status                   :                  Up
+system-id                          :   52:19:85:f6:c1:c7
+dual-primary detection             :            Disabled
+dual-primary interface errdisabled :               False
+                                                       
+MLAG Ports:                      
+Disabled                           :                   0
+Configured                         :                   0
+Inactive                           :                   0
+Active-partial                     :                   0
+Active-full                        :                   1
+
+MLAG Detailed Status:
+State                           :           secondary
+Peer State                      :             primary
+State changes                   :                   2
+Last state change time          :         2:29:56 ago
+Hardware ready                  :                True
+Failover                        :               False
+Failover Cause(s)               :             Unknown
+Last failover change time       :               never
+Secondary from failover         :               False
+Peer MAC address                :   50:19:85:f6:c1:c7
+Peer MAC routing supported      :               False
+Reload delay                    :         300 seconds
+Non-MLAG reload delay           :         330 seconds
+Ports errdisabled               :               False
+Lacp standby                    :               False
+Configured heartbeat interval   :             4000 ms
+Effective heartbeat interval    :             4000 ms
+Heartbeat timeout               :            60000 ms
+Last heartbeat timeout          :               never
+Heartbeat timeouts since reboot :                   0
+UDP heartbeat alive             :                True
+Heartbeats sent/received        :           2254/2251
+Peer monotonic clock offset     :    3.108741 seconds
+Agent should be running         :                True
+P2p mount state changes         :                   1
+Fast MAC redirection enabled    :               False
+Interface activation interlock  :         unsupported
+
+Leaf1#
+Leaf1#show mlag interfaces
+                                                                   local/remote
+  mlag     desc                       state     local     remote         status
+-------- -------------------- --------------- --------- ---------- ------------
+    10     CLIENT_LACP_Left     active-full      Po10       Po10          up/up
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#show interfaces Port-Channel200 status
+Port       Name                    Status       Vlan     Duplex Speed  Type         Flags Encapsulation
+Po200      MLAG PEER-LINK to Leaf2 connected    trunk    full   2G     N/A                            
+
+Leaf1#
+Leaf1#show interfaces Port-Channel200
+Port-Channel200 is up, line protocol is up (connected)
+  Hardware is Port-Channel, address is 50f4.6900.1107
+  Description: MLAG PEER-LINK to Leaf2
+  Ethernet MTU 9214 bytes, BW 2000000 kbit
+  Full-duplex, 2Gb/s 
+  Active members in this channel: 2
+  ... Ethernet7 , Full-duplex, 1Gb/s
+  ... Ethernet8 , Full-duplex, 1Gb/s
+  Fallback mode is: off
+  Up 2 hours, 30 minutes
+  2 link status changes since last clear
+  Last clearing of "show interface" counters never
+  5 minutes input rate 2.07 kbps (0.0% with framing overhead), 3 packets/sec
+  5 minutes output rate 2.29 kbps (0.0% with framing overhead), 3 packets/sec
+     32277 packets input, 3051626 bytes
+     Received 677 broadcasts, 2222 multicast
+     0 input errors, 0 input discards
+     32260 packets output, 2921072 bytes
+     Sent 684 broadcasts, 2214 multicast
+     0 output errors, 0 output discards
+Leaf1#
+Leaf1#show interfaces Vlan4093
+Vlan4093 is up, line protocol is up (connected)
+  Hardware is Vlan, address is 50f4.696a.0cd8 (bia 50f4.696a.0cd8)
+  Description: MLAG keepalive SVI
+  Internet address is 169.254.12.1/30
+  Broadcast address is 255.255.255.255
+  IP MTU 1500 bytes (default)
+  Up 2 hours, 29 minutes, 56 seconds
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#show ip virtual-router
+IP virtual router is configured with MAC address: 0001.0001.0001
+IP virtual router address subnet routes not enabled
+MAC address advertisement interval: 30 seconds
+No interface with virtual IP address
+Leaf1#
+Leaf1#
+
+```
+
+```
+Leaf3#
+Leaf3#show mlag
+MLAG Configuration:              
+domain-id                          :              MLAG34
+local-interface                    :            Vlan4093
+peer-address                       :        169.254.12.6
+peer-link                          :     Port-Channel200
+peer-config                        :          consistent
+                                                       
+MLAG Status:                     
+state                              :              Active
+negotiation status                 :           Connected
+peer-link status                   :                  Up
+local-int status                   :                  Up
+system-id                          :   52:23:63:7b:8a:38
+dual-primary detection             :            Disabled
+dual-primary interface errdisabled :               False
+                                                       
+MLAG Ports:                      
+Disabled                           :                   0
+Configured                         :                   0
+Inactive                           :                   0
+Active-partial                     :                   0
+Active-full                        :                   1
+
+Leaf3#
+Leaf3#show mlag detail
+MLAG Configuration:              
+domain-id                          :              MLAG34
+local-interface                    :            Vlan4093
+peer-address                       :        169.254.12.6
+peer-link                          :     Port-Channel200
+peer-config                        :          consistent
+                                                       
+MLAG Status:                     
+state                              :              Active
+negotiation status                 :           Connected
+peer-link status                   :                  Up
+local-int status                   :                  Up
+system-id                          :   52:23:63:7b:8a:38
+dual-primary detection             :            Disabled
+dual-primary interface errdisabled :               False
+                                                       
+MLAG Ports:                      
+Disabled                           :                   0
+Configured                         :                   0
+Inactive                           :                   0
+Active-partial                     :                   0
+Active-full                        :                   1
+
+MLAG Detailed Status:
+State                           :           secondary
+Peer State                      :             primary
+State changes                   :                   2
+Last state change time          :         2:31:02 ago
+Hardware ready                  :                True
+Failover                        :               False
+Failover Cause(s)               :             Unknown
+Last failover change time       :               never
+Secondary from failover         :               False
+Peer MAC address                :   50:23:63:7b:8a:38
+Peer MAC routing supported      :               False
+Reload delay                    :         300 seconds
+Non-MLAG reload delay           :         330 seconds
+Ports errdisabled               :               False
+Lacp standby                    :               False
+Configured heartbeat interval   :             4000 ms
+Effective heartbeat interval    :             4000 ms
+Heartbeat timeout               :            60000 ms
+Last heartbeat timeout          :               never
+Heartbeat timeouts since reboot :                   0
+UDP heartbeat alive             :                True
+Heartbeats sent/received        :           2271/2267
+Peer monotonic clock offset     :   -6.263180 seconds
+Agent should be running         :                True
+P2p mount state changes         :                   1
+Fast MAC redirection enabled    :               False
+Interface activation interlock  :         unsupported
+
+Leaf3#
+Leaf3#show mlag interfaces
+                                                                 local/remote
+   mlag       desc             state       local       remote          status
+---------- ---------- ----------------- ----------- ------------ ------------
+     20                  active-full        Po10         Po10           up/up
+Leaf3#
+Leaf3#
+Leaf3#
+Leaf3#show interfaces Port-Channel200 status
+Port       Name                    Status       Vlan     Duplex Speed  Type         Flags Encapsulation
+Po200      MLAG PEER-LINK to Leaf4 connected    trunk    full   2G     N/A                            
+
+Leaf3#
+Leaf3#show interfaces Port-Channel200
+Port-Channel200 is up, line protocol is up (connected)
+  Hardware is Port-Channel, address is 5025.1b00.1207
+  Description: MLAG PEER-LINK to Leaf4
+  Ethernet MTU 9214 bytes, BW 2000000 kbit
+  Full-duplex, 2Gb/s 
+  Active members in this channel: 2
+  ... Ethernet7 , Full-duplex, 1Gb/s
+  ... Ethernet8 , Full-duplex, 1Gb/s
+  Fallback mode is: off
+  Up 2 hours, 31 minutes, 7 seconds
+  2 link status changes since last clear
+  Last clearing of "show interface" counters never
+  5 minutes input rate 2.37 kbps (0.0% with framing overhead), 4 packets/sec
+  5 minutes output rate 2.65 kbps (0.0% with framing overhead), 4 packets/sec
+     32898 packets input, 3101027 bytes
+     Received 92 broadcasts, 2242 multicast
+     0 input errors, 0 input discards
+     32918 packets output, 2996571 bytes
+     Sent 83 broadcasts, 2240 multicast
+     0 output errors, 0 output discards
+Leaf3#
+Leaf3#show interfaces Vlan4093
+Vlan4093 is up, line protocol is up (connected)
+  Hardware is Vlan, address is 5025.1b2e.482e (bia 5025.1b2e.482e)
+  Description: MLAG keepalive SVI
+  Internet address is 169.254.12.5/30
+  Broadcast address is 255.255.255.255
+  IP MTU 1500 bytes (default)
+  Up 2 hours, 31 minutes, 2 seconds
+Leaf3#
+Leaf3#
+Leaf3#
+Leaf3#
+Leaf3#
+Leaf3#show ip virtual-router
+IP virtual router is configured with MAC address: 0001.0001.0001
+IP virtual router address subnet routes not enabled
+MAC address advertisement interval: 30 seconds
+No interface with virtual IP address
+Leaf3#
+```
 
 
 ## Spine1
