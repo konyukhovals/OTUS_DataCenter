@@ -62,25 +62,19 @@ reload
 Простые пинги по схеме
 <img width="2167" height="1282" alt="image" src="https://github.com/user-attachments/assets/0402a6b6-1c25-497f-8011-0b06dd3540e3" />
 
-Тушим Leaf2, смотрим на пинги. Таймауты дикие. Связываю такое поведение просто с pnetlab, не должно так себя вести
+Тушим Leaf2 кнопкой стоп, смотрим на пинги. Таймауты дикие. Связываю такое поведение просто с pnetlab, не должно так себя вести
 <img width="1728" height="1308" alt="image" src="https://github.com/user-attachments/assets/7a71f42c-65bb-40ae-a6de-7271e3cec64d" />
 
 <img width="2091" height="1313" alt="image" src="https://github.com/user-attachments/assets/219f8cea-b549-43a5-bfe1-b9e7cb52e210" />
 
+Однако если зарелоадить Leaf2 через его консоль - перерыв сервиса незаметен. Считаю, что MLAG работает
+
+<img width="2022" height="1316" alt="image" src="https://github.com/user-attachments/assets/c9459abb-ee21-40cc-80b3-729cfc304434" />
+
+<img width="2205" height="1321" alt="image" src="https://github.com/user-attachments/assets/89e02f05-767a-4134-bf8d-ce4648721919" />
+
 
 Набор команд для диагностики (sh mac add - для Leaf)
-
-```
-show ip bgp summary
-show bgp evpn summary
-show bgp evpn route-type imet
-show bgp evpn route-type mac-ip
-show bgp evpn route-type ip-prefix
-show vxlan vni
-show vxlan vtep
-show ip route vrf TENANT-A
-sh mac address-table
-```
 
 ```
 show mlag
@@ -1403,3 +1397,114 @@ router bgp 65213
 end
 Leaf4#
 ```
+
+## 192.168.10.100 LACP
+
+```
+localhost#sh run
+! Command: show running-config
+! device: localhost (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+spanning-tree mode mstp
+!
+vlan 10,20
+!
+interface Port-Channel1
+   switchport access vlan 10
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 1 mode active
+!
+interface Ethernet3
+   switchport access vlan 10
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Management1
+!
+interface Vlan10
+   ip address 192.168.10.100/24
+!
+ip routing
+!
+ip route 0.0.0.0/0 192.168.10.254
+!
+end
+localhost# 
+```
+
+
+## 192.168.20.100 LACP
+
+```
+ocalhost#sh run
+! Command: show running-config
+! device: localhost (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+spanning-tree mode mstp
+!
+vlan 10,20
+!
+interface Port-Channel1
+   switchport access vlan 20
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 1 mode active
+!
+interface Ethernet3
+   switchport access vlan 20
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Management1
+!
+interface Vlan20
+   ip address 192.168.20.100/24
+!
+ip routing
+!
+ip route 0.0.0.0/0 192.168.20.254
+!
+end
+localhost#
+```
+
+
