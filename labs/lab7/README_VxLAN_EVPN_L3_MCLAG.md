@@ -2,8 +2,9 @@
 Hometask 2.14 - VxLAN EVPN L3 + MC-LAG
 
 # Наша топология
+Сделано не хост а свич для LACP, потому что сущность с бондами не смог запихнуть в свой pnetlab. LACP невероятно глючит, очень много времени было потеряно на этом.
 
-<img width="1589" height="901" alt="image" src="https://github.com/user-attachments/assets/eb404939-2bba-4818-b137-7a87e6f9d257" />
+<img width="2260" height="1247" alt="image" src="https://github.com/user-attachments/assets/f739bab4-f2a3-48b9-8cbc-8b3ad23c9961" />
 
 # Наша адресация
 
