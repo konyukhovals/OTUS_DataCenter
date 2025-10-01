@@ -1,5 +1,5 @@
 
-Hometask 2.15 - VxLAN EVPN L3 + MC-LAG
+Hometask 2.15 - VxLAN EVPN L3 + Border Router 
 
 # Наша топология
 
