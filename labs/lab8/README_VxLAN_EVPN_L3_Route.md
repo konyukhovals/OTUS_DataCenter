@@ -6,7 +6,7 @@ Hometask 2.15 - VxLAN EVPN L3 + MC-LAG
 Прердыдущую схему не трогал, развернул всё на Leaf1,4, и Border. Тестовые клиенты 172.16.0.1 ext, 172.16.1.1 ext.
 
 Сделал на убогой статике с суммаризацией. костыль на костыле. можно задуматься о ebgp в отдельных врфах. мне ни статика не нравится, ни ebgp, если честно. 
-То есть, сейчас мы суммарный маршрут таскаем, да, а в врфах на лифах мы статику пишем. убого вышлядит, немасштабируемо работает. лучше уж и правда ebgp, но это слегка усложняет схему и накладывает требования на оборудование  заказчика. у заказчика сети имеют свойство плодиться, опять придется статикой работать.
+То есть, сейчас мы суммарный маршрут таскаем, да, а в врфах на лифах мы статику пишем. убого выглядит, немасштабируемо работает. лучше уж и правда ebgp, но это слегка усложняет схему и накладывает требования на оборудование  заказчикаю однако, у заказчика сети имеют свойство плодиться, опять придется статикой работать - поэтому лучше всё равно ebgp.
 
 <img width="1920" height="1287" alt="image" src="https://github.com/user-attachments/assets/b8c3aa19-9b1d-42a3-97c5-7e647084e1a4" />
 
@@ -65,13 +65,280 @@ reload
 
 Простые пинги по схеме
 
+<img width="927" height="594" alt="image" src="https://github.com/user-attachments/assets/f48cd72f-d28f-4fae-aba7-38b0cecac61f" />
 
+## Команды для разнообразия
+```
+show bgp evpn route-type ip-prefix ipv4
+show ip route vrf CLIENT-BORDER-A
+show ip route vrf CLIENT-BORDER-B
+
+show arp vrf CLIENT-BORDER-A
+show arp vrf CLIENT-BORDER-B
+show mac address-table dynamic
 ```
 
 ```
 
-```
+Leaf1#
+Leaf1#show bgp evpn route-type ip-prefix ipv4
+BGP routing table information for VRF default
+Router identifier 10.1.1.10, local AS number 65210
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexth
+op
 
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 10.255.1.10:50030 ip-prefix 172.16.0.0/23
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.13:50040 ip-prefix 172.16.0.0/23
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50040 ip-prefix 172.16.0.0/23
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50040 ip-prefix 172.16.0.0/23
+                                 10.255.1.13           -       100     0       65000 65213 i
+ * >      RD: 10.255.1.10:50030 ip-prefix 172.16.10.0/30
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.13:50040 ip-prefix 172.16.10.4/30
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50040 ip-prefix 172.16.10.4/30
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50040 ip-prefix 172.16.10.4/30
+                                 10.255.1.13           -       100     0       65000 65213 i
+ * >      RD: 10.255.1.10:50000 ip-prefix 192.168.10.0/24
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ * >Ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ * >Ec    RD: 10.255.1.13:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+ * >      RD: 10.255.1.10:50000 ip-prefix 192.168.20.0/24
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ * >Ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ * >Ec    RD: 10.255.1.13:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+ *  ec    RD: 10.255.1.13:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.13           -       100     0       65000 65213 i
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#show ip route vrf CLIENT-BORDER-A
+
+VRF: CLIENT-BORDER-A
+Codes: C - connected, S - static, K - kernel, 
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, O3 - OSPFv3, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route
+
+Gateway of last resort:
+ S        0.0.0.0/0 [1/0] via 172.16.10.2, Ethernet7
+
+ C        172.16.0.0/24 is directly connected, Vlan30
+ S        172.16.1.0/24 [1/0] via 172.16.10.2, Ethernet7
+ A B      172.16.0.0/23 is directly connected, Null0
+ C        172.16.10.0/30 is directly connected, Ethernet7
+
+Leaf1#
+Leaf1#show ip route vrf CLIENT-BORDER-B
+% IP Routing table for VRF CLIENT-BORDER-B does not exist.
+Leaf1#
+Leaf1#
+Leaf1#
+Leaf1#show arp vrf CLIENT-BORDER-A
+Address         Age (sec)  Hardware Addr   Interface
+172.16.10.2       1:20:13  5055.39c6.2777  Ethernet7
+172.16.0.1        1:15:20  0050.7966.680d  Vlan30, Ethernet6
+Leaf1#
+Leaf1#show arp vrf CLIENT-BORDER-B
+% ARP table for VRF CLIENT-BORDER-B does not exist.
+Leaf1#
+Leaf1#show mac address-table dynamic
+          Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports      Moves   Last Move
+----    -----------       ----        -----      -----   ---------
+  30    0050.7966.680d    DYNAMIC     Et6        1       0:07:57 ago
+4090    5023.637b.8a38    DYNAMIC     Vx1        1       1:13:45 ago
+Total Mac Addresses for this criterion: 2
+
+          Multicast Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+Total Mac Addresses for this criterion: 0
+Leaf1#
+Leaf1#
+
+
+
+Leaf4#
+Leaf4#
+Leaf4#show bgp evpn route-type ip-prefix ipv4
+BGP routing table information for VRF default
+Router identifier 10.1.1.13, local AS number 65213
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexth
+op
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >Ec    RD: 10.255.1.10:50030 ip-prefix 172.16.0.0/23
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50030 ip-prefix 172.16.0.0/23
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50030 ip-prefix 172.16.0.0/23
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >      RD: 10.255.1.13:50040 ip-prefix 172.16.0.0/23
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.10:50030 ip-prefix 172.16.10.0/30
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50030 ip-prefix 172.16.10.0/30
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50030 ip-prefix 172.16.10.0/30
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >      RD: 10.255.1.13:50040 ip-prefix 172.16.10.4/30
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.10:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >Ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ * >Ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.10.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ * >      RD: 10.255.1.13:50000 ip-prefix 192.168.10.0/24
+                                 -                     -       -       0       i
+ * >Ec    RD: 10.255.1.10:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ *  ec    RD: 10.255.1.10:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.10           -       100     0       65000 65210 i
+ * >Ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ *  ec    RD: 10.255.1.11:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.11           -       100     0       65000 65211 i
+ * >Ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ *  ec    RD: 10.255.1.12:50000 ip-prefix 192.168.20.0/24
+                                 10.255.1.12           -       100     0       65000 65212 i
+ * >      RD: 10.255.1.13:50000 ip-prefix 192.168.20.0/24
+                                 -                     -       -       0       i
+Leaf4#
+Leaf4#
+Leaf4#
+Leaf4#
+Leaf4#
+Leaf4#show ip route vrf CLIENT-BORDER-A
+% IP Routing table for VRF CLIENT-BORDER-A does not exist.
+Leaf4#
+Leaf4#show ip route vrf CLIENT-BORDER-B
+
+VRF: CLIENT-BORDER-B
+Codes: C - connected, S - static, K - kernel, 
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, O3 - OSPFv3, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route
+
+Gateway of last resort:
+ S        0.0.0.0/0 [1/0] via 172.16.10.6, Ethernet7
+
+ S        172.16.0.0/24 [1/0] via 172.16.10.6, Ethernet7
+ C        172.16.1.0/24 is directly connected, Vlan40
+ A B      172.16.0.0/23 is directly connected, Null0
+ C        172.16.10.4/30 is directly connected, Ethernet7
+
+Leaf4#
+Leaf4#
+Leaf4#
+Leaf4#show arp vrf CLIENT-BORDER-A
+% ARP table for VRF CLIENT-BORDER-A does not exist.
+Leaf4#
+Leaf4#show arp vrf CLIENT-BORDER-B
+Address         Age (sec)  Hardware Addr   Interface
+172.16.10.6       1:21:42  5055.39c6.2777  Ethernet7
+172.16.1.1        1:15:42  0050.7966.6815  Vlan40, Ethernet6
+Leaf4#
+Leaf4#show mac address-table dynamic
+          Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports      Moves   Last Move
+----    -----------       ----        -----      -----   ---------
+  40    0050.7966.6815    DYNAMIC     Et6        1       0:00:06 ago
+4089    50ab.2cfe.57e5    DYNAMIC     Vx1        1       1:26:22 ago
+Total Mac Addresses for this criterion: 2
+
+          Multicast Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+Total Mac Addresses for this criterion: 0
+Leaf4#
+Leaf4#
+Leaf4#
 ```
 
 
