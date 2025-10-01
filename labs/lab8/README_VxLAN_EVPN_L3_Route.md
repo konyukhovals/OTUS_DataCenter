@@ -67,6 +67,20 @@ reload
 
 <img width="927" height="594" alt="image" src="https://github.com/user-attachments/assets/f48cd72f-d28f-4fae-aba7-38b0cecac61f" />
 
+с пингами всё просто, условно три маршрутизатора, сниф с врф лиф1
+<img width="1271" height="436" alt="image" src="https://github.com/user-attachments/assets/59b02b83-b1ba-4703-8fb5-c89ac6253343" />
+
+а вот и мясий
+
+<img width="1456" height="769" alt="image" src="https://github.com/user-attachments/assets/81553bb2-d576-4e1f-bc78-004555d221f6" />
+и гарнирчик
+
+<img width="1115" height="526" alt="image" src="https://github.com/user-attachments/assets/2c7254a0-ec17-4177-b8dd-c3cddedb90ed" />
+
+<img width="843" height="208" alt="image" src="https://github.com/user-attachments/assets/04af7a9c-f735-4c21-ad61-ab48b21ce7ea" />
+
+
+
 ## Команды для разнообразия
 ```
 show bgp evpn route-type ip-prefix ipv4
