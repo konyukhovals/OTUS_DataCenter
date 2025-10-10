@@ -15,6 +15,7 @@
 
 
 Spine 1
+```
 conf t
  hostname Spine1_2
 
@@ -50,10 +51,11 @@ conf t
   network 10.1.0.8/31 area 0.0.0.0
 exit
 copy run start
-
+```
 
 
 Spine2
+```
 conf t
  hostname Spine2_2
 
@@ -89,10 +91,11 @@ conf t
   network 10.1.0.10/31 area 0.0.0.0
 exit
 copy run start
-
+```
 
 
 Leaf1
+```
 conf t
  hostname Leaf1_2
 
@@ -122,9 +125,10 @@ conf t
   network 10.1.0.3/31 area 0.0.0.0
 exit
 copy run start
-
+```
 
 leaf2
+```
 conf t
  hostname Leaf2_2
 
@@ -154,10 +158,11 @@ conf t
   network 10.1.0.7/31 area 0.0.0.0
 exit
 copy run start
-
+```
 
 
 leaf3
+```
 conf t
  hostname Leaf3_2
 
@@ -187,3 +192,6 @@ conf t
   network 10.1.0.11/31 area 0.0.0.0
 exit
 copy run start
+```
+
+
