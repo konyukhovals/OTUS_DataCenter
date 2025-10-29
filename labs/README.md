@@ -25,6 +25,7 @@ zerotouch cancel
 ```
 en
 conf t
+service routing protocols model ribd
 ip routing
 exi
 wr
