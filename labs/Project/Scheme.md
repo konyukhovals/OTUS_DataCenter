@@ -1,2 +1,6 @@
-
-<img width="3200" height="1700" alt="image" src="https://github.com/user-attachments/assets/22c4015b-ef20-4b85-bf83-1db25528e08d" />
+<img width="1634" height="870" alt="image" src="https://github.com/user-attachments/assets/ac4f7596-91f4-4a70-87cf-da75af12e694" />
+<div style="width: 100%; height: 100%">
+  
+  ![]([.images/sample.png](https://github.com/user-attachments/assets/ac4f7596-91f4-4a70-87cf-da75af12e694))
+  
+</div>
