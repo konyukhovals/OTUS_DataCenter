@@ -1,17 +1,14 @@
+Заключительная работа - два DC, BGP/BGP и OSPF/BGP, в DC1 - подключен ISP с default route
+
 <img width="1634" height="870" alt="image" src="https://github.com/user-attachments/assets/0ffe741a-79b3-4035-8f62-3ecfb75fe007" />
 
 
 
+<img width="1217" height="573" alt="image" src="https://github.com/user-attachments/assets/e9afe28c-f9a5-47a2-a7df-b10a5bbbea33" />
 
+<img width="1192" height="768" alt="image" src="https://github.com/user-attachments/assets/98bbf859-70cc-4746-b497-d97820fe730a" />
 
-
-
-
-
-
-
-
-
+<img width="602" height="375" alt="image" src="https://github.com/user-attachments/assets/69972141-dc87-4b8a-a9d0-36d6f2f70417" />
 
 
 
