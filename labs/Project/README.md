@@ -136,7 +136,6 @@ router bgp 65000
       network 10.1.0.4/31
       network 10.1.1.0/32
       network 10.255.1.0/32
-      network 10.255.1.0/24 route-map DCI-OUT
       network 172.16.0.0/31
 !
 end
